@@ -15,7 +15,7 @@ module.exports = {
     // Register user (registration)
     register: async (req, res) => {
         try {
-            const { name, email, password, role } = req.body;
+            const { firstName, lastName, email, mobilePhone, password, confirmPassword, role } = req.body;
 
             // Check if user already exists
             const existingUser = await User.findOne({ email });
@@ -24,7 +24,7 @@ module.exports = {
             }
 
             // Create new user
-            const user = new User({ name, email, password, role });
+            const user = new User({ firstName, lastName, email, mobilePhone, password, confirmPassword, role });
             await user.save();
 
             // Generate JWT token

@@ -1,6 +1,11 @@
 const jwt = require("jsonwebtoken");
 
 module.exports.authenticate = (req, res, next) => {
+    // Ensure req.cookies is defined
+    if (!req.cookies) {
+        return res.status(401).json({ verified: false, message: "No cookies found, unauthorized access." });
+    }
+
     // Check if the user token exists in the cookies
     const token = req.cookies.usertoken;
 

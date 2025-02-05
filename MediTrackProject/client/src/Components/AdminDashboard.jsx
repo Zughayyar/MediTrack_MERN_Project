@@ -1,60 +1,55 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom"; // Import Link for navigation
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import "../Styles/AdminDashboard.css";
-import myImage from "../Pics/undefined.png";
+import AdminBar from "./AdminBar";
 
 const AdminDashboard = () => {
-    // Sample doctors data (you can fetch from API)
-    const [doctors, setdoctors] = useState([
-        { id: 1, firstname: "Sami", lastname: "Daraghmeh", email: "john@example.com"  },
-        { id: 2, firstname: "Sami", lastname: "Daraghmeh" , email: "john@example.com"   },
-        { id: 3, firstname: "Sami", lastname: "Daraghmeh" , email: "john@example.com"   },
-        { id: 4, firstname: "Sami", lastname: "Daraghmeh" , email: "john@example.com"   },
-        { id: 5, firstname: "Sami", lastname: "Daraghmeh" , email: "john@example.com"   },
-        { id: 6, firstname: "Sami", lastname: "Daraghmeh" , email: "john@example.com"   },
-        { id: 7, firstname: "Sami", lastname: "Daraghmeh" , email: "john@example.com"   },
-        { id: 8, firstname: "Sami", lastname: "Daraghmeh" , email: "john@example.com"   },
-        { id: 9, firstname: "Sami", lastname: "Daraghmeh" , email: "john@example.com"   },
-        { id: 10, firstname: "Sami", lastname: "Daraghmeh" , email: "john@example.com"   },
-        { id: 11, firstname: "Sami", lastname: "Daraghmeh" , email: "john@example.com"   },
-        { id: 12, firstname: "Sami", lastname: "Daraghmeh" , email: "john@example.com"   },
-        { id: 13, firstname: "Sami", lastname: "Daraghmeh" , email: "john@example.com"   },
-        { id: 14, firstname: "Sami", lastname: "Daraghmeh" , email: "john@example.com"   },
-        { id: 15, firstname: "Sami", lastname: "Daraghmeh" , email: "john@example.com"   }
-    ]);
+    const location = useLocation();
+    const path = location.pathname.replace("/", "");
+
+    const data = {
+        doctors: [
+            { id: 1, firstname: "Sami", lastname: "Daraghmeh", email: "sami@example.com" },
+            { id: 2, firstname: "John", lastname: "Doe", email: "john@example.com" }
+        ],
+        nurses: [
+            { id: 1, firstname: "Jane", lastname: "Smith", email: "jane@example.com" },
+            { id: 2, firstname: "Emily", lastname: "Johnson", email: "emily@example.com" }
+        ],
+        assistants: [
+            { id: 1, firstname: "Robert", lastname: "Brown", email: "robert@example.com" },
+            { id: 2, firstname: "Alice", lastname: "Davis", email: "alice@example.com" }
+        ]
+    };
+
+    const [items, setItems] = useState([]);
+
+    useEffect(() => {
+        setItems(data[path] || []);
+    }, [path]);
 
     const [currentPage, setCurrentPage] = useState(1);
-    const doctorsPerPage = 10;
+    const itemsPerPage = 10;
 
     const handleDelete = (id) => {
-        setdoctors(doctors.filter(doctor => doctor.id !== id));
+        const newItems = items.filter(item => item.id !== id);
+        setItems(newItems);
+        if (newItems.length < (currentPage - 1) * itemsPerPage) {
+            setCurrentPage(currentPage - 1);
+        }
     };
 
-    const indexOfLastdoctor = currentPage * doctorsPerPage;
-    const indexOfFirstdoctor = indexOfLastdoctor - doctorsPerPage;
-    const currentdoctors = doctors.slice(indexOfFirstdoctor, indexOfLastdoctor);
-
-    const handlePageChange = (pageNumber) => {
-        setCurrentPage(pageNumber);
-    };
-
-    const totalPages = Math.ceil(doctors.length / doctorsPerPage);
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = items.slice(indexOfFirstItem, indexOfLastItem);
+    const totalPages = Math.ceil(items.length / itemsPerPage);
 
     return (
         <div className="admin-dashboard">
-            <div className="top-bar">
-                <img src={myImage} alt="Logo" className="logo" />
-                <h1>Admin Dashboard</h1>
-                <div className="nav-links">
-                    <Link to="/doctors" className="nav-link-active">Doctors</Link>
-                    <Link to="/nurses" className="nav-link-active">Nurses</Link>
-                    <Link to="/assistants" className="nav-link-active">Assistants</Link>
-                    <Link to="/login" className="nav-link-active">Logout</Link>
-                </div>
-            </div>
+            <AdminBar path={path} />
 
             <div className="table-container">
-                <button className="create-btn">Create doctor</button>
+                <Link to={`create`}>Create {path}</Link>
                 <table style={{ marginTop: "30px" }}>
                     <thead>
                         <tr>
@@ -66,15 +61,15 @@ const AdminDashboard = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {currentdoctors.map(doctor => (
-                            <tr key={doctor.id}>
-                                <td>{doctor.id}</td>
-                                <td>{doctor.firstname}</td>
-                                <td>{doctor.lastname}</td>
-                                <td>{doctor.email}</td>
+                        {currentItems.map(item => (
+                            <tr key={item.id}>
+                                <td>{item.id}</td>
+                                <td>{item.firstname}</td>
+                                <td>{item.lastname}</td>
+                                <td>{item.email}</td>
                                 <td>
                                     <button className="edit-btn">Edit</button>
-                                    <button className="delete-btn" onClick={() => handleDelete(doctor.id)}>Delete</button>
+                                    <button className="delete-btn" onClick={() => handleDelete(item.id)}>Delete</button>
                                 </td>
                             </tr>
                         ))}
@@ -87,7 +82,7 @@ const AdminDashboard = () => {
                     <button 
                         key={index + 1} 
                         className={`page-btn ${currentPage === index + 1 ? "active" : ""}`}
-                        onClick={() => handlePageChange(index + 1)}
+                        onClick={() => setCurrentPage(index + 1)}
                     >
                         {index + 1}
                     </button>

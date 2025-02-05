@@ -1,18 +1,34 @@
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "../Styles/Login.css";
 import AdminBar from "./AdminBar";
 
 const EditUsers = () => {
     const location = useLocation();
+    const navigate = useNavigate();
     const path = location.pathname.split("/")[1]; 
+    const [isFading, setIsFading] = useState(false);
+
+    const handleNavigation = (url) => {
+        setIsFading(true);
+        setTimeout(() => navigate(url), 300);
+    };
 
     return (
         <>
             <AdminBar path={path} />
-            <form action="#" className="login-form">
+            <form action="#" className={`login-form ${isFading ? "fade-out" : "fade-in"}`}>
                 <div className="login"> 
-                    <Link className="back-link" to={`/${path.charAt(0) + path.slice(1)}`}>{"<"} Back to {path.charAt(0).toUpperCase() + path.slice(1)} Table</Link>
+                    <Link 
+                        className="back-link" 
+                        to={`/${path.charAt(0) + path.slice(1)}`}
+                        onClick={(e) => {
+                            e.preventDefault();
+                            handleNavigation(`/${path.charAt(0) + path.slice(1)}`);
+                        }}
+                    >
+                        {"<"} Back to {path.charAt(0).toUpperCase() + path.slice(1)} Table
+                    </Link>
                     <h1>Edit {path.charAt(0).toUpperCase() + path.slice(1)}</h1> 
                     <div className="inputs">
                         <div className="firstName">

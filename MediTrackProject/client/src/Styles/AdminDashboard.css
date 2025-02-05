@@ -4,7 +4,8 @@
     background-color: #1f1f1f;
     color: #f4f4f4;
     min-height: 100vh;
-    padding: 20px;
+    background: url("https://images4.alphacoders.com/594/thumb-1920-594600.jpg");
+    background-size: cover;
 }
 
 /* Top Bar */
@@ -40,23 +41,7 @@
     color: #1689d2;
 }
 
-/* Buttons */
-.create-link {
-    display: inline-block;
-    text-decoration: none;
-    background-color: #28a745;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 14px;
-    font-weight: 600;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
 
-.create-link:hover {
-    background-color: #218838;
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
-}
 
 /* Table Styles */
 .table-container {
@@ -65,7 +50,7 @@
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    overflow-x: auto;
+    overflow-x: hidden;
 }
 
 table {
@@ -75,7 +60,6 @@ table {
 
 th, td {
     padding: 12px 15px;
-    text-align: left;
 }
 
 th {
@@ -91,37 +75,42 @@ td {
     font-size: 14px;
 }
 
+
 tr:hover {
     background-color: #444;
 }
 
-/* Action Buttons */
-.edit-link, .delete-btn {
-    color: white;
-    padding: 6px 12px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 600;
-    transition: background-color 0.3s ease;
+
+/* Fade-in transition */
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 0.5s ease-in forwards;
 }
 
-.edit-link {
-    background-color: #1689d2;
-    margin-right: 10px;
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
-.edit-link:hover {
-    background-color: #0056b3;
+/* Fade-out transition */
+.fade-out {
+    opacity: 1;
+    animation: fadeOut 0.5s ease-out forwards;
 }
 
-.delete-btn {
-    background-color: #dc3545;
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
 }
 
-.delete-btn:hover {
-    background-color: #c82333;
+
+/* No data message */
+.no-data {
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ccc;
+    padding: 20px;
 }
 
 /* Pagination */
@@ -132,28 +121,85 @@ tr:hover {
     gap: 5px;
 }
 
+/* General Button Styles */
+button, .edit-link, .delete-btn, .create-link {
+    display: inline-block;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    outline: none;
+}
+
+/* Create Button */
+.create-link {
+    background: linear-gradient(135deg, #1e9b6d, #28a745);
+    color: white;
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+    max-width: 200px;
+}
+
+.create-link:hover {
+    background: linear-gradient(135deg, #187d57, #218838);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(40, 167, 69, 0.4);
+}
+
+/* Edit Button */
+.edit-link {
+    background: linear-gradient(135deg, #007bff, #1689d2);
+    color: white;
+    box-shadow: 0 4px 8px rgba(22, 137, 210, 0.3);
+}
+
+.edit-link:hover {
+    background: linear-gradient(135deg, #0056b3, #0f6ca1);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(22, 137, 210, 0.4);
+}
+
+/* Delete Button */
+.delete-btn {
+    background: linear-gradient(135deg, #d32f2f, #dc3545);
+    color: white;
+    box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+}
+
+.delete-btn:hover {
+    background: linear-gradient(135deg, #a52828, #c82333);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(220, 53, 69, 0.4);
+}
+
+/* Pagination Buttons */
 .page-btn {
-    background-color: #444;
+    background: linear-gradient(135deg, #3a3a3a, #444);
     border: 1px solid #555;
     color: #f4f4f4;
-    padding: 8px 16px;
-    cursor: pointer;
-    border-radius: 5px;
+    padding: 10px 18px;
     font-size: 14px;
     font-weight: 600;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    border-radius: 6px;
+    transition: all 0.3s ease;
 }
 
 .page-btn:hover {
-    background-color: #555;
+    background: linear-gradient(135deg, #4a4a4a, #555);
     transform: translateY(-2px);
 }
 
 .page-btn.active {
-    background-color: #1689d2;
+    background: linear-gradient(135deg, #007bff, #1689d2);
     color: white;
     font-weight: 700;
+    box-shadow: 0 4px 8px rgba(22, 137, 210, 0.4);
 }
+
+
 
 /* Responsive Design */
 @media (max-width: 768px) {

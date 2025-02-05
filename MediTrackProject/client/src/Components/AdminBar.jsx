@@ -3,12 +3,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import myImage from "../Pics/undefined.png";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import "../Styles/AdminDashboard.css"
+import "../Styles/Login.css"
+
 
 const AdminBar = ({ path }) => {
     return (
         <div className="top-bar">
             <img src={myImage} alt="Logo" className="logo" />
-            <h1>Admin Dashboard</h1>
+            <h1 style={{marginLeft:"10%"}}>Admin Dashboard</h1>
             <div className="nav-links">
                 <Link to="/doctors" className={path === "doctors" ? "nav-link-active" : "nav-link"}>
                     <i className="fas fa-user-md"></i> Doctors

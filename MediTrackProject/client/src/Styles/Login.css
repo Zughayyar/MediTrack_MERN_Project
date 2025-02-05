@@ -3,10 +3,32 @@ body {
     margin: 0;
     padding: 0;
     text-align: center;
-    background-color: #2d2b2b;
+    background: url("https://images4.alphacoders.com/594/thumb-1920-594600.jpg");
+    background-size: cover;
     color: #ffffff;
     font-family: 'Poppins', sans-serif;
 }
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 0.5s ease-in forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Fade-out transition */
+.fade-out {
+    opacity: 1;
+    animation: fadeOut 0.5s ease-out forwards;
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
 
 input {
     width: 90%;

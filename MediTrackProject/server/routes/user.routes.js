@@ -5,6 +5,7 @@ module.exports = app => {
     // User routes
     app.post("/api/register", Users.register);  // Register route
     app.post("/api/login", Users.login);  // Login route
+    app.post("/api/logout", Users.logout);  // Logout route
 
     // Protected route (requires authentication)
     app.get("/api/users", authenticate, Users.getAllUsers);  // Get all users route

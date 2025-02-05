@@ -6,8 +6,7 @@ const jwt = require('jsonwebtoken');
 const generateToken = (user) => {
     return jwt.sign(
         { id: user._id, role: user.role },
-        process.env.SECRET_KEY,
-        { expiresIn: '1h' }
+        process.env.SECRET_KEY
     );
 }
 
@@ -64,7 +63,7 @@ module.exports = {
             res
                 .cookie('usertoken', token, { httpOnly: true })
                 .status(200)
-                .json({ message: 'Login successful', user, token }); // Include token in response body
+                .json({ message: 'Login successful', user });
         } catch (err) {
             res.status(500).json({ message: 'Error logging in user', error: err });
         }
@@ -73,7 +72,7 @@ module.exports = {
     // Logout user
     logout: (req, res) => {
         res.clearCookie('usertoken');
-        res.status(200).json({ message: 'Logged out successfully' });
+        res.sendStatus(200);
     },
 
     // Get all users (admin only)

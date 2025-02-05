@@ -1,9 +1,9 @@
 import React from "react";
-import {Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "../Styles/Login.css";
 import AdminBar from "./AdminBar";
 
-const CreateUsers = () => {
+const EditUsers = () => {
     const location = useLocation();
     const path = location.pathname.split("/")[1]; 
 
@@ -12,8 +12,8 @@ const CreateUsers = () => {
             <AdminBar path={path} />
             <form action="#" className="login-form">
                 <div className="login"> 
-                <Link className="back-link" to={`/${path.charAt(0) + path.slice(1)}`}>{"<"} Back to {path.charAt(0).toUpperCase() + path.slice(1)} Table</Link>
-                    <h1>Create {path.charAt(0).toUpperCase() + path.slice(1)}</h1> 
+                    <Link className="back-link" to={`/${path.charAt(0) + path.slice(1)}`}>{"<"} Back to {path.charAt(0).toUpperCase() + path.slice(1)} Table</Link>
+                    <h1>Edit {path.charAt(0).toUpperCase() + path.slice(1)}</h1> 
                     <div className="inputs">
                         <div className="firstName">
                             <input type="text" placeholder="First name..." className="input-field"/><br />
@@ -24,12 +24,6 @@ const CreateUsers = () => {
                         <div className="password">
                             <input type="email" placeholder="Email..." className="input-field"/>
                         </div>
-                        <div className="password">
-                            <input type="password" placeholder="Password..." className="input-field"/>
-                        </div>
-                        <div className="password">
-                            <input type="password" placeholder="Confirm password..." className="input-field"/>
-                        </div>
                     </div>
                     <button className="button-19" role="button">Submit</button>
                 </div>
@@ -38,4 +32,4 @@ const CreateUsers = () => {
     );
 };
 
-export default CreateUsers;
+export default EditUsers;

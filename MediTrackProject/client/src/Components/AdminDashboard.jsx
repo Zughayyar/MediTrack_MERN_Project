@@ -68,7 +68,7 @@ const AdminDashboard = () => {
                                 <td>{item.lastname}</td>
                                 <td>{item.email}</td>
                                 <td>
-                                    <button className="edit-btn">Edit</button>
+                                    <Link to={`/${path}/edit/${item.id}`} className="edit-link">Edit</Link>
                                     <button className="delete-btn" onClick={() => handleDelete(item.id)}>Delete</button>
                                 </td>
                             </tr>

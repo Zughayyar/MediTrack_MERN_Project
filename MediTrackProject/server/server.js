@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser'); // Import cookie-parser
 
 // Middleware
 app.use(cors({
-    origin: 'http://localhost:5173',  // Replace with your front-end URL
+    origin: 'http://localhost:3000',  // Replace with your front-end URL
     credentials: true  // Allow sending cookies with requests
 }));
 app.use(express.json());

@@ -64,7 +64,7 @@ module.exports = {
             res
                 .cookie('usertoken', token, { httpOnly: true })
                 .status(200)
-                .json({ message: 'Login successful', user });
+                .json({ message: 'Login successful', user, token }); // Include token in response body
         } catch (err) {
             res.status(500).json({ message: 'Error logging in user', error: err });
         }

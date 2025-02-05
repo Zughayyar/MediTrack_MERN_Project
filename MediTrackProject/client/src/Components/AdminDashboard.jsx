@@ -49,7 +49,7 @@ const AdminDashboard = () => {
             <AdminBar path={path} />
 
             <div className="table-container">
-                <Link to={`create`}>Create {path}</Link>
+                <Link className="create-link" to={`create`}>Create {path}</Link>
                 <table style={{ marginTop: "30px" }}>
                     <thead>
                         <tr>

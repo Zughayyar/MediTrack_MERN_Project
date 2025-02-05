@@ -1,0 +1,128 @@
+body {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    background-color: #2d2b2b; 
+    color: #ffffff; 
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif; 
+}
+
+input {
+    width: 90%;
+    height: 35px;
+    font-size: 16px;
+    padding: 5px;
+    border: 1px solid #555; 
+    border-radius: 5px;
+    outline: none;
+    background-color: #444; 
+    color: #ffffff;
+}
+
+input::placeholder {
+    color: #bbb;
+}
+
+label {
+    font-size: 20px;
+    font-weight: bold;
+    color: #f0f0f0;
+}
+
+.inputs {
+    margin-top: 50px;
+}
+
+.password {
+    margin-top: 50px;
+}
+
+.login-form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login {
+    border: 2px solid #444; /* Softer border */
+    width: 30%;
+    min-width: 300px;
+    padding: 30px;
+    text-align: center;
+    border-radius: 10px;
+    background-color: #333; /* Dark gray login box */
+    box-shadow: 5px 5px 10px 10px rgba(22, 137, 205, 0.4); /* Softer shadow */
+    margin-bottom: 10%;
+}
+
+.logo-login {
+    margin-top: 20px;
+    width: 300px;
+}
+
+/* Button Styling */
+.button-19 {
+  appearance: button;
+  background-color: #0073e6; /* More vibrant blue */
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: din-round, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: .8px;
+  line-height: 20px;
+  margin: 0;
+  outline: none;
+  overflow: visible;
+  padding: 13px 16px;
+  text-align: center;
+  text-transform: uppercase;
+  touch-action: manipulation;
+  transform: translateZ(0);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+  width: 40%;
+  margin-top: 50px;
+  position: relative;
+}
+
+.button-19:after {
+  background-clip: padding-box;
+  background-color: #005bb5; /* Darker blue for depth */
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+  bottom: -4px;
+  content: "";
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: -1;
+}
+
+.button-19:hover:not(:disabled) {
+  background-color: #0088ff;
+  transform: scale(1.05);
+}
+
+.button-19:disabled {
+  cursor: auto;
+  background-color: #555;
+}
+
+.button-19:active {
+  border-width: 4px 0 0;
+  background: none;
+}

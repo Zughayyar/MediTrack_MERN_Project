@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import Login from "./Components/Login";
 import AdminDashboard from "./Components/AdminDashboard";
 
+
 const App = () => {
     return (
         <Router>
@@ -10,9 +11,10 @@ const App = () => {
                 <Route path="/" element={<Navigate to="/login" />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/admindashboard" element={<AdminDashboard />} />
+
             </Routes>
         </Router>
     );
 };
 
-export default App
+export default App;

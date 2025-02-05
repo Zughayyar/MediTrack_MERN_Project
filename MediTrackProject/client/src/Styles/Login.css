@@ -20,6 +20,30 @@ input {
     color: #ffffff;
 }
 
+.back-link {
+  display: inline-block;
+  margin: 20px 0;
+  padding: 10px 15px;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #007bff;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.back-link:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.back-link:active {
+  background-color: #004494;
+  transform: translateY(0);
+}
+
+
 input::placeholder {
     color: #bbb;
 }

@@ -1,13 +1,10 @@
-/* General Styling for Admin Dashboard */
 .admin-dashboard {
     font-family: Arial, sans-serif;
     background-color: #1f1f1f;
     color: #f4f4f4;
-    padding: 20px;
     min-height: 100vh;
 }
 
-/* Top Bar Styling */
 .top-bar {
     display: flex;
     justify-content: space-between;
@@ -48,7 +45,6 @@
     transition: color 0.3s ease;
 }
 
-/* Create User Button */
 .create-btn {
     background-color: #28a745;
     color: white;
@@ -67,7 +63,6 @@
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
 }
 
-/* Table Container Styling */
 .table-container {
     margin-top: 30px;
     background-color: #2a2a2a;
@@ -99,7 +94,6 @@ td {
     font-size: 14px;
 }
 
-/* Action Buttons (Edit and Delete) */
 .edit-btn, .delete-btn {
     color: white;
     padding: 6px 12px;
@@ -112,7 +106,7 @@ td {
 }
 
 .edit-btn {
-    background-color: #007bff;
+    background-color: #1689d2;
     margin-right: 10px;
 }
 
@@ -128,12 +122,10 @@ td {
     background-color: #c82333;
 }
 
-/* Table Rows Hover Effect */
 tr:hover {
     background-color: #444;
 }
 
-/* Pagination Styling */
 .pagination {
     display: flex;
     justify-content: center;
@@ -159,12 +151,11 @@ tr:hover {
 }
 
 .page-btn.active {
-    background-color: #007bff;
+    background-color: #1689d2;
     color: white;
     font-weight: 700;
 }
 
-/* Responsiveness */
 @media (max-width: 768px) {
     .top-bar {
         flex-direction: column;

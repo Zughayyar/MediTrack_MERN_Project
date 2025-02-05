@@ -4,55 +4,57 @@ import "../Styles/AdminDashboard.css";
 import myImage from "../Pics/undefined.png";
 
 const AdminDashboard = () => {
-    // Sample users data (you can fetch from API)
-    const [users, setUsers] = useState([
-        { id: 1, firstname: "Sami", lastname: "Daraghmeh", email: "john@example.com" , role:"Doctor"},
-        { id: 2, firstname: "Sami", lastname: "Daraghmeh" , email: "john@example.com" , role:"Doctor" },
-        { id: 3, firstname: "Sami", lastname: "Daraghmeh" , email: "john@example.com" , role:"Doctor" },
-        { id: 4, firstname: "Sami", lastname: "Daraghmeh" , email: "john@example.com" , role:"Doctor" },
-        { id: 5, firstname: "Sami", lastname: "Daraghmeh" , email: "john@example.com" , role:"Doctor" },
-        { id: 6, firstname: "Sami", lastname: "Daraghmeh" , email: "john@example.com" , role:"Doctor" },
-        { id: 7, firstname: "Sami", lastname: "Daraghmeh" , email: "john@example.com" , role:"Doctor" },
-        { id: 8, firstname: "Sami", lastname: "Daraghmeh" , email: "john@example.com" , role:"Doctor" },
-        { id: 9, firstname: "Sami", lastname: "Daraghmeh" , email: "john@example.com" , role:"Doctor" },
-        { id: 10, firstname: "Sami", lastname: "Daraghmeh" , email: "john@example.com" , role:"Doctor" },
-        { id: 11, firstname: "Sami", lastname: "Daraghmeh" , email: "john@example.com" , role:"Doctor" },
-        { id: 12, firstname: "Sami", lastname: "Daraghmeh" , email: "john@example.com" , role:"Doctor" },
-        { id: 13, firstname: "Sami", lastname: "Daraghmeh" , email: "john@example.com" , role:"Doctor" },
-        { id: 14, firstname: "Sami", lastname: "Daraghmeh" , email: "john@example.com" , role:"Doctor" },
-        { id: 15, firstname: "Sami", lastname: "Daraghmeh" , email: "john@example.com" , role:"Doctor" }
+    // Sample doctors data (you can fetch from API)
+    const [doctors, setdoctors] = useState([
+        { id: 1, firstname: "Sami", lastname: "Daraghmeh", email: "john@example.com"  },
+        { id: 2, firstname: "Sami", lastname: "Daraghmeh" , email: "john@example.com"   },
+        { id: 3, firstname: "Sami", lastname: "Daraghmeh" , email: "john@example.com"   },
+        { id: 4, firstname: "Sami", lastname: "Daraghmeh" , email: "john@example.com"   },
+        { id: 5, firstname: "Sami", lastname: "Daraghmeh" , email: "john@example.com"   },
+        { id: 6, firstname: "Sami", lastname: "Daraghmeh" , email: "john@example.com"   },
+        { id: 7, firstname: "Sami", lastname: "Daraghmeh" , email: "john@example.com"   },
+        { id: 8, firstname: "Sami", lastname: "Daraghmeh" , email: "john@example.com"   },
+        { id: 9, firstname: "Sami", lastname: "Daraghmeh" , email: "john@example.com"   },
+        { id: 10, firstname: "Sami", lastname: "Daraghmeh" , email: "john@example.com"   },
+        { id: 11, firstname: "Sami", lastname: "Daraghmeh" , email: "john@example.com"   },
+        { id: 12, firstname: "Sami", lastname: "Daraghmeh" , email: "john@example.com"   },
+        { id: 13, firstname: "Sami", lastname: "Daraghmeh" , email: "john@example.com"   },
+        { id: 14, firstname: "Sami", lastname: "Daraghmeh" , email: "john@example.com"   },
+        { id: 15, firstname: "Sami", lastname: "Daraghmeh" , email: "john@example.com"   }
     ]);
 
     const [currentPage, setCurrentPage] = useState(1);
-    const usersPerPage = 10;
+    const doctorsPerPage = 10;
 
     const handleDelete = (id) => {
-        setUsers(users.filter(user => user.id !== id));
+        setdoctors(doctors.filter(doctor => doctor.id !== id));
     };
 
-    const indexOfLastUser = currentPage * usersPerPage;
-    const indexOfFirstUser = indexOfLastUser - usersPerPage;
-    const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
+    const indexOfLastdoctor = currentPage * doctorsPerPage;
+    const indexOfFirstdoctor = indexOfLastdoctor - doctorsPerPage;
+    const currentdoctors = doctors.slice(indexOfFirstdoctor, indexOfLastdoctor);
 
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
 
-    const totalPages = Math.ceil(users.length / usersPerPage);
+    const totalPages = Math.ceil(doctors.length / doctorsPerPage);
 
     return (
         <div className="admin-dashboard">
             <div className="top-bar">
                 <img src={myImage} alt="Logo" className="logo" />
+                <h1>Admin Dashboard</h1>
                 <div className="nav-links">
-                    <Link to="/" className="nav-link-active">Admin Dashboard</Link>
-                    <Link to="/" className="nav-link">Home</Link>
-                    <Link to="/about" className="nav-link">About Us</Link>
+                    <Link to="/doctors" className="nav-link-active">Doctors</Link>
+                    <Link to="/nurses" className="nav-link-active">Nurses</Link>
+                    <Link to="/assistants" className="nav-link-active">Assistants</Link>
+                    <Link to="/login" className="nav-link-active">Logout</Link>
                 </div>
             </div>
 
             <div className="table-container">
-                <button className="create-btn">Create User</button>
+                <button className="create-btn">Create doctor</button>
                 <table style={{ marginTop: "30px" }}>
                     <thead>
                         <tr>
@@ -60,21 +62,19 @@ const AdminDashboard = () => {
                             <th>First Name</th>
                             <th>Last Name</th>
                             <th>Email</th>
-                            <th>Role</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {currentUsers.map(user => (
-                            <tr key={user.id}>
-                                <td>{user.id}</td>
-                                <td>{user.firstname}</td>
-                                <td>{user.lastname}</td>
-                                <td>{user.email}</td>
-                                <td>{user.role}</td>
+                        {currentdoctors.map(doctor => (
+                            <tr key={doctor.id}>
+                                <td>{doctor.id}</td>
+                                <td>{doctor.firstname}</td>
+                                <td>{doctor.lastname}</td>
+                                <td>{doctor.email}</td>
                                 <td>
                                     <button className="edit-btn">Edit</button>
-                                    <button className="delete-btn" onClick={() => handleDelete(user.id)}>Delete</button>
+                                    <button className="delete-btn" onClick={() => handleDelete(doctor.id)}>Delete</button>
                                 </td>
                             </tr>
                         ))}

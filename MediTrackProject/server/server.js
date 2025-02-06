@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser'); // Import cookie-parser
 
 // Middleware
 app.use(cors({
-    origin: 'http://localhost:3000',  // Replace with your front-end URL
+    origin: 'http://localhost:5173',  // Replace with your front-end URL
     credentials: true  // Allow sending cookies with requests
 }));
 app.use(express.json());
@@ -17,7 +17,16 @@ app.use(cookieParser()); // Use cookie-parser middleware
 
 // Routes
 const userRoutes = require('./routes/user.routes');
+const prescriptionRoutes = require('./routes/prescription.routes');
+const patientRoutes = require('./routes/patient.routes');
+const medicalHistoryRoutes = require('./routes/medicalHistory.routes');
+const appointmentRoutes = require('./routes/appointment.routes');
+
 userRoutes(app);  // Register user-related routes
+prescriptionRoutes(app);  // Register prescription-related routes
+patientRoutes(app);  // Register patient-related routes
+medicalHistoryRoutes(app);  // Register medical history-related routes
+appointmentRoutes(app);  // Register appointment-related routes
 
 // Error handling middleware
 app.use((err, req, res, next) => {  // Add next parameter

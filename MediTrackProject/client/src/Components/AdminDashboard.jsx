@@ -8,6 +8,7 @@ const AdminDashboard = () => {
     const navigate = useNavigate();
     const path = location.pathname.replace("/", "");
 
+    
     const data = {
         doctors: [
             { id: 1, firstname: "Sami", lastname: "Daraghmeh", email: "sami@example.com" },

@@ -4,7 +4,7 @@ import Login from "./Components/Login";
 import AdminDashboard from "./Components/AdminDashboard";
 import CreateUsers from "./Components/CreateUsers";
 import EditUsers from "./Components/EditUsers";
-import DoctorDashboard from "./Components/DoctorDashboard";
+// import DoctorDashboard from "./Components/DoctorDashboard";
 import NurseDashboard from "./Components/NurseDashboard";
 import AssistantDashboard from "./Components/AssistantDashboard";
 
@@ -32,7 +32,7 @@ const App = () => {
 
                 {/* Placeholder for doctor, nurse, assistant routes */}
                 {/* <Route path="dashboard/doctor" element={<DoctorDashboard />}/> */}
-                {/* <Route path="dashboard/nurse" element={<NurseDashboard />}/> */}
+                <Route path="dashboard/nurse" element={<NurseDashboard />}/>
                 <Route path="dashboard/assistant" element={<AssistantDashboard />}/>
 
 

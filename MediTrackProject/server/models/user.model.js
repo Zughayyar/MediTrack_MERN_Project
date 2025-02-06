@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
 // Define user roles
-const roles = ['practitioner', 'nurse', 'assistant', 'administrator'];
+const roles = ['practitioner', 'assistant', 'administrator', 'patient'];
 
 const userSchema = new mongoose.Schema({
     firstName: {

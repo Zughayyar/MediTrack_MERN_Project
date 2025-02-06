@@ -6,22 +6,26 @@ import AdminBar from "./AdminBar";
 const AdminDashboard = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    const path = location.pathname.replace("/", "");
 
-    
+    // Extract the entity type from the path (e.g., "doctors" from "/admin/doctors")
+    const pathSegments = location.pathname.split("/");
+    const path = pathSegments[2] || "doctors"; // Default to "doctors" if undefined
+
     const data = {
         doctors: [
             { id: 1, firstname: "Sami", lastname: "Daraghmeh", email: "sami@example.com" },
             { id: 2, firstname: "John", lastname: "Doe", email: "john@example.com" },
-            { id: 3, firstname: "Alice", lastname: "Green", email: "alice@example.com" },
-            { id: 4, firstname: "Michael", lastname: "Brown", email: "michael@example.com" },
-            { id: 5, firstname: "David", lastname: "Miller", email: "david@example.com" },
-            { id: 6, firstname: "Sophia", lastname: "Wilson", email: "sophia@example.com" },
-            { id: 7, firstname: "James", lastname: "Taylor", email: "james@example.com" },
-            { id: 8, firstname: "Olivia", lastname: "Anderson", email: "olivia@example.com" },
-            { id: 9, firstname: "William", lastname: "Thomas", email: "william@example.com" },
-            { id: 10, firstname: "Emma", lastname: "White", email: "emma@example.com" },
-            { id: 11, firstname: "Liam", lastname: "Harris", email: "liam@example.com" }
+            { id: 3, firstname: "Sami", lastname: "Daraghmeh", email: "sami@example.com" },
+            { id: 4, firstname: "John", lastname: "Doe", email: "john@example.com" },
+            { id: 5, firstname: "Sami", lastname: "Daraghmeh", email: "sami@example.com" },
+            { id: 6, firstname: "John", lastname: "Doe", email: "john@example.com" },
+            { id: 7, firstname: "Sami", lastname: "Daraghmeh", email: "sami@example.com" },
+            { id: 8, firstname: "John", lastname: "Doe", email: "john@example.com" },
+            { id: 9, firstname: "Sami", lastname: "Daraghmeh", email: "sami@example.com" },
+            { id: 10, firstname: "John", lastname: "Doe", email: "john@example.com" },
+            { id: 11, firstname: "Sami", lastname: "Daraghmeh", email: "sami@example.com" },
+            { id: 12, firstname: "John", lastname: "Doe", email: "john@example.com" },
+            { id: 13, firstname: "Alice", lastname: "Green", email: "alice@example.com" }
         ],
         nurses: [
             { id: 1, firstname: "Jane", lastname: "Smith", email: "jane@example.com" },
@@ -36,24 +40,29 @@ const AdminDashboard = () => {
     const [items, setItems] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [isFading, setIsFading] = useState(false);
-    const itemsPerPage = 10; // Show only 10 per page
+    const itemsPerPage = 10;
 
     useEffect(() => {
         setItems(data[path] || []);
-        setCurrentPage(1); // Reset page when switching categories
+        setCurrentPage(1); // Reset pagination on category switch
     }, [path]);
 
     const handleDelete = (id) => {
-        const newItems = items.filter(item => item.id !== id);
-        setItems(newItems);
-        if ((currentPage - 1) * itemsPerPage >= newItems.length) {
+        const updatedItems = items.filter(item => item.id !== id);
+        setItems(updatedItems);
+
+        // Ensure pagination stays within valid range
+        if ((currentPage - 1) * itemsPerPage >= updatedItems.length) {
             setCurrentPage(prev => (prev > 1 ? prev - 1 : 1));
         }
     };
 
     const handleNavigation = (url) => {
         setIsFading(true);
-        setTimeout(() => navigate(url), 500);
+        setTimeout(() => {
+            setIsFading(false);
+            navigate(url);
+        }, 300);
     };
 
     // Pagination logic
@@ -69,10 +78,10 @@ const AdminDashboard = () => {
             <div className="table-container">
                 <Link 
                     className="create-link" 
-                    to={`create`} 
+                    to={`/admin/${path}/create`} 
                     onClick={(e) => {
                         e.preventDefault();
-                        handleNavigation(`create`);
+                        handleNavigation(`/admin/${path}/create`);
                     }}
                 >
                     Create {path}
@@ -98,11 +107,11 @@ const AdminDashboard = () => {
                                     <td>{item.email}</td>
                                     <td>
                                         <Link 
-                                            to={`/${path}/edit/${item.id}`} 
+                                            to={`/admin/${path}/edit/${item.id}`} 
                                             className="edit-link"
                                             onClick={(e) => {
                                                 e.preventDefault();
-                                                handleNavigation(`/${path}/edit/${item.id}`);
+                                                handleNavigation(`/admin/${path}/edit/${item.id}`);
                                             }}
                                         >
                                             Edit

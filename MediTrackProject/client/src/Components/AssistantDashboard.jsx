@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
 
 const AssistantDashboard = () => {
     const [assistantData, setAssistantData] = useState(null);
@@ -9,8 +8,9 @@ const AssistantDashboard = () => {
 
     useEffect(() => {
         // Fetch assistant-specific data
-        axios.get("/api/assistant/data")
-            .then(response => setAssistantData(response.data))
+        fetch("/api/assistant/data")
+            .then(response => response.json())
+            .then(data => setAssistantData(data))
             .catch(error => console.error("Error fetching assistant data:", error));
     }, []);
 

@@ -9,32 +9,27 @@ const App = () => {
     return (
         <Router>
             <Routes>
+                {/* Redirect root to /login */}
                 <Route path="/" element={<Navigate to="/login" />} />
                 <Route path="/login" element={<Login />} />
 
-                <Route path="/doctors" element={<AdminDashboard />} />
-                <Route path="/nurses" element={<AdminDashboard />} />
-                <Route path="/assistants" element={<AdminDashboard />} />
+                {/* Admin routes */}
+                <Route path="/admin/doctors" element={<AdminDashboard />} />
+                <Route path="/admin/nurses" element={<AdminDashboard />} />
+                <Route path="/admin/assistants" element={<AdminDashboard />} />
 
-                <Route path="/doctors/create" element={<CreateUsers />} />
-                <Route path="/assistants/create" element={<CreateUsers />} />
-                <Route path="/nurses/create" element={<CreateUsers />} />
-                
-                <Route path="/doctors/edit/:id" element={<EditUsers />} />
-                <Route path="/assistants/edit/:id" element={<EditUsers />} />
-                <Route path="/nurses/edit/:id" element={<EditUsers />} />
+                <Route path="/admin/doctors/create" element={<CreateUsers />} />
+                <Route path="/admin/nurses/create" element={<CreateUsers />} />
+                <Route path="/admin/assistants/create" element={<CreateUsers />} />
 
+                <Route path="/admin/doctors/edit/:id" element={<EditUsers />} />
+                <Route path="/admin/nurses/edit/:id" element={<EditUsers />} />
+                <Route path="/admin/assistants/edit/:id" element={<EditUsers />} />
 
-
-                {/* 
-                    Todo:
-                    - Add Genereal Route for admin dashboard.
-                    - add sub routes for doctors, nurses, and assistants.(/admin/doctors/, /admin/nurses, /admin/assistants)
-                
-                
-                
-                */}
-                
+                {/* Placeholder for doctor, nurse, assistant routes */}
+                <Route path="/doctor" />
+                <Route path="/nurse" />
+                <Route path="/assistant" />
             </Routes>
         </Router>
     );

@@ -1,51 +1,41 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import Login from "./Components/Login";
-import AdminDashboard from "./Components/AdminDashboard";
-import CreateUsers from "./Components/CreateUsers";
-import EditUsers from "./Components/EditUsers";
-import DoctorDashboard from "./Components/DoctorDashboard";
-import NurseDashboard from "./Components/NurseDashboard";
-import AssistantDashboard from "./Components/AssistantDashboard";
-import Home from "./Components/Home";
-import FAQ from "./Components/FAQ";
-import News from "./Components/News";
-import AboutUs from "./Components/AboutUs";
+import { Routes, Route } from "react-router-dom";
+import Login from "./components/users/Login";
+import AdminDashboard from "./views/AdminDashboard";
+import AssistantDashboard from "./views/AssistantDashboard";
+import Home from "./components/homePage/Home";
+import FAQ from "./components/homePage/FAQ";
+import News from "./components/homePage/News";
+import AboutUs from "./components/homePage/AboutUs";
+import AdminHome from "./components/admin/AdminHome";
+import UsersList from "./components/users/UsersList";
+import UserForm from "./components/users/UserForm";
+import PractitionerDashboard from "./views/PractitionerDashboard.jsx";
 
 const App = () => {
     return (
-        <Router>
-            <Routes>
-                
-                {/* Redirect root to /login */}
-                <Route path="/" element={<Home />} />
-                <Route path="/faq" element={<FAQ />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/news" element={<News />} />
-                <Route path="/about" element={<AboutUs />} />
+        <Routes>
+            {/* Home Page */}
+            {/*Landing Page Routes*/}
+            <Route path="/" element={<Home />} />
+            <Route path="/faq" element={<FAQ />} />
+            <Route path="/login" element={<Login/>} />
+            <Route path="/news" element={<News />} />
+            <Route path="/about" element={<AboutUs />} />
 
+            {/*Admin Dashboard Routes*/}
+            <Route path="/adminDashboard" element={<AdminDashboard/>}>
+                <Route index path="home" element={<AdminHome/>} />
+                <Route path="users" element={<UsersList/>} />
+                <Route path="addUser" element={<UserForm/>} />
+                <Route path="editUser/:id" element={<UserForm/>} />
+            </Route>
 
-                {/* Admin routes */}
+            {/*Practitioner Dashboard Routes*/}
+            <Route path='/practDashboard' element={<PractitionerDashboard/>} />
 
-                <Route path="/admin/doctors" element={<AdminDashboard />} />
-                <Route path="/admin/nurses" element={<AdminDashboard />} />
-                <Route path="/admin/assistants" element={<AdminDashboard />} />
-
-                <Route path="/admin/doctors/create" element={<CreateUsers />} />
-                <Route path="/admin/nurses/create" element={<CreateUsers />} />
-                <Route path="/admin/assistants/create" element={<CreateUsers />} />
-
-                <Route path="/admin/doctors/edit/:id" element={<EditUsers />} />
-                <Route path="/admin/nurses/edit/:id" element={<EditUsers />} />
-                <Route path="/admin/assistants/edit/:id" element={<EditUsers />} />
-
-                {/* Placeholder for doctor, nurse, assistant routes */}
-                <Route path="dashboard/doctor" element={<DoctorDashboard />}/>
-                <Route path="dashboard/nurse" element={<NurseDashboard />}/>
-                <Route path="dashboard/assistant" element={<AssistantDashboard />}/>
-
-            </Routes>
-        </Router>
+            {/*Assistant Dashboard Routes*/}
+            <Route path='/assistDashboard' element={<AssistantDashboard/>} />
+        </Routes>
     );
 };
 

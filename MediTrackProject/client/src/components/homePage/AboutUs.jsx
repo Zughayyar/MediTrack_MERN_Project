@@ -1,6 +1,5 @@
-import React from "react";
 import TopBar from "./TopBar";
-import "../Styles/AboutUs.css"; // Include your custom CSS
+import "../../styles/AboutUs.css";
 
 const AboutUs = () => {
   return (

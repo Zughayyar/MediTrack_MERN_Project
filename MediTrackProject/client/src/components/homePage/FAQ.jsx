@@ -1,9 +1,9 @@
-import React, { useState } from "react"; // Added useState import
-import TopBar from "./TopBar"; // Import TopBar component
-import "../Styles/FAQ.css";
+import { useState } from "react";
+import TopBar from "./TopBar";
+import "../../styles/FAQ.css";
 
 const FAQ = () => {
-  const [openIndex, setOpenIndex] = useState(null); // State to track open questions
+  const [openIndex, setOpenIndex] = useState(null);
 
   const toggleAnswer = (index) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -35,37 +35,31 @@ const FAQ = () => {
       answer:
         "Your data is securely encrypted and protected according to industry standards.",
     },
-
     {
       question: "Can I get an electronic prescription?",
       answer:
         "Yes, doctors can generate prescriptions as PDFs and send them via email.",
     },
-
     {
       question: "Will I receive appointment reminders?",
       answer:
-        "Yes, you’ll get reminders via email or SMS before your appointment..",
+        "Yes, you’ll get reminders via email or SMS before your appointment.",
     },
-
     {
       question: "How can doctors manage patient records?",
       answer:
         "Doctors can add notes, diagnoses, and treatment plans through their dashboard.",
     },
-
     {
       question: "Does MediTraker have a mobile application?",
       answer:
         "No, but we plan to launch one soon.",
     },
-
-
   ];
 
   return (
     <div className="faq-container">
-      <TopBar /> {/* Top navigation bar */}
+      <TopBar />
       <h2 className="faq-title">Frequently Asked Questions</h2>
       <div className="faq-list">
         {faqData.map((faq, index) => (

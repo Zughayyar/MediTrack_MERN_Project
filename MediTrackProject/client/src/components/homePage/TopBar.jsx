@@ -1,7 +1,6 @@
-import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "../Styles/TopBar.css";
-import logo from "../Pics/undefined.png";
+import "../../styles/TopBar.css";
+import logo from "../../images/undefined.png";
 
 function TopBar() {
   const navigate = useNavigate();
@@ -15,7 +14,7 @@ function TopBar() {
   return (
     <div className="topbar">
       <div className="logo">
-        <img src={logo} className="img-logo"/>
+        <img src={logo} className="img-logo" alt="logo" />
       </div>
       <nav className="nav-links">
         <Link to="/">Home</Link>

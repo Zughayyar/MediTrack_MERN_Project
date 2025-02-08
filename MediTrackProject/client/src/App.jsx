@@ -10,6 +10,7 @@ import AdminHome from "./components/admin/AdminHome";
 import UsersList from "./components/users/UsersList";
 import UserForm from "./components/users/UserForm";
 import PractitionerDashboard from "./views/PractitionerDashboard.jsx";
+import DoctorDashboard from "./components/doctor/doctordashboard.jsx";
 
 const App = () => {
     return (
@@ -35,6 +36,8 @@ const App = () => {
 
             {/*Assistant Dashboard Routes*/}
             <Route path='/assistDashboard' element={<AssistantDashboard/>} />
+
+            <Route path='/doctorDashboard' element={<DoctorDashboard/>} />
         </Routes>
     );
 };

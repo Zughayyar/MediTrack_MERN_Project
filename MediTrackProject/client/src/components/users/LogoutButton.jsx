@@ -1,20 +1,20 @@
-import React from 'react';
 import { Button } from 'antd';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthContext.jsx';
 
 const LogoutButton = () => {
-    const navigate = useNavigate();
-    const { logout } = useAuth();
+    const navigate = useNavigate(); // Hook called INSIDE the component
+    const { logout } = useAuth();     // Hook called INSIDE the component
 
-    const handleLogout = async () => {
-        await axios.post('http://localhost:8000/api/logout', {}, {withCredentials: true})
-        .then(() => {
+    const handleLogout = async () => { // handleLogout is now INSIDE
+        try {
+            await axios.post('http://localhost:8000/api/logout', {}, { withCredentials: true });
             logout();
             navigate('/');
-        })
-        .catch(error => console.log(error));
+        } catch (error) {
+            console.error("Logout error:", error); // Improved error handling
+        }
     };
 
     return (

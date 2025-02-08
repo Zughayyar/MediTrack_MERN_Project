@@ -1,19 +1,19 @@
 require('dotenv').config();
-require('./config/mongoose.config');  // MongoDB connection
+require('./config/mongoose.config');
 const express = require('express');
 const app = express();
-const port = process.env.PORT;  // Set a default port in case the env variable is not set
+const port = process.env.PORT;
 const cors = require('cors');
-const cookieParser = require('cookie-parser'); // Import cookie-parser
+const cookieParser = require('cookie-parser');
 
 // Middleware
 app.use(cors({
-    origin: 'http://localhost:5173',  // Replace with your front-end URL
-    credentials: true  // Allow sending cookies with requests
+    origin: 'http://localhost:5173',
+    credentials: true
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser()); // Use cookie-parser middleware
+app.use(cookieParser());
 
 // Routes
 const userRoutes = require('./routes/user.routes');
@@ -27,9 +27,9 @@ medicalHistoryRoutes(app);  // Register medical history-related routes
 appointmentRoutes(app);  // Register appointment-related routes
 
 // Error handling middleware
-app.use((err, req, res, next) => {  // Add next parameter
-    console.error(err.stack);
-    res.status(500).send({ error: 'Something went wrong' });
+app.use((error, request, response, next) => {
+    console.error(error.stack);
+    response.status(500).send({ error: 'Something went wrong' });
 });
 
 // Start server

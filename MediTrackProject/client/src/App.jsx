@@ -7,6 +7,8 @@ import EditUsers from "./Components/EditUsers";
 import DoctorDashboard from "./Components/DoctorDashboard";
 import NurseDashboard from "./Components/NurseDashboard";
 import AssistantDashboard from "./Components/AssistantDashboard";
+import Home from "./Components/Home";
+import FAQ from "./Components/FAQ";
 
 const App = () => {
     return (
@@ -14,8 +16,10 @@ const App = () => {
             <Routes>
                 
                 {/* Redirect root to /login */}
-                <Route path="/" element={<Navigate to="/login" />} />
+                <Route path="/" element={<Home />} />
+                <Route path="/faq" element={<FAQ />} />
                 <Route path="/login" element={<Login />} />
+
 
                 {/* Admin routes */}
 

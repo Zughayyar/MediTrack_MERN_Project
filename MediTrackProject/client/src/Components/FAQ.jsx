@@ -11,30 +11,56 @@ const FAQ = () => {
 
   const faqData = [
     {
-      question: "What is DonFin?",
+      question: "What is MediTraker?",
       answer:
-        " is a personal finance tracker designed for students to help manage their income, expenses, and savings efficiently.",
+        "MediTraker is a healthcare appointment management system that helps patients book appointments and track wait times.",
     },
     {
-      question: "How do I track my expenses?",
+      question: "Who can use MediTraker?",
       answer:
-        "You can log your daily expenses by categorizing them into various categories like rent, food, entertainment, etc.",
+        "Patients, doctors, and assistants can use it to manage appointments and medical records.",
     },
     {
-      question: "Can I set a budget?",
+      question: "How do I book an appointment?",
       answer:
-        "Yes, DonFin allows you to set monthly budgets and helps you track your spending to stay within your limits.",
+        "Yes, you can modify or cancel your appointment through your dashboard.",
     },
     {
-      question: "Is DonFin free to use?",
+      question: "Does MediTraker show wait times?",
       answer:
-        "Yes, DonFin offers a free version with essential features. Additional advanced features may be available with premium plans.",
+        "Yes, it provides estimated wait times based on patient flow.",
     },
     {
-      question: "How do I contact support?",
+      question: "How is my medical data stored?",
       answer:
-        "You can contact our support team through the 'Contact Us' page or by emailing support@donfin.com.",
+        "Your data is securely encrypted and protected according to industry standards.",
     },
+
+    {
+      question: "Can I get an electronic prescription?",
+      answer:
+        "Yes, doctors can generate prescriptions as PDFs and send them via email.",
+    },
+
+    {
+      question: "Will I receive appointment reminders?",
+      answer:
+        "Yes, you’ll get reminders via email or SMS before your appointment..",
+    },
+
+    {
+      question: "How can doctors manage patient records?",
+      answer:
+        "Doctors can add notes, diagnoses, and treatment plans through their dashboard.",
+    },
+
+    {
+      question: "Does MediTraker have a mobile application?",
+      answer:
+        "No, but we plan to launch one soon.",
+    },
+
+
   ];
 
   return (

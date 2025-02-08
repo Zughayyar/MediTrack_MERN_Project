@@ -5,122 +5,91 @@ const jwt = require('jsonwebtoken');
 // Utility function to generate JWT token
 const generateToken = (user) => {
     return jwt.sign(
-        { id: user._id, role: user.role },
+        { id: user._id },
         process.env.SECRET_KEY
     );
 }
 
 module.exports = {
     // Register user (registration)
-    register: async (req, res) => {
-        try {
-            const { firstName, lastName, email, mobilePhone, password, confirmPassword, role } = req.body;
+    register: async (request, response) => {
+        const { email } = request.body; // Extract email from request body
 
-            // Check if user already exists
-            const existingUser = await User.findOne({ email });
-            if (existingUser) {
-                return res.status(400).json({ message: 'User already exists' });
-            }
-
-            // Create new user
-            const user = new User({ firstName, lastName, email, mobilePhone, password, confirmPassword, role });
-            await user.save();
-
-            // Generate JWT token
-            const token = generateToken(user);
-
-            // Send response with token
-            res
-                .cookie('usertoken', token, { httpOnly: true })
-                .status(201)
-                .json({ message: 'User registered successfully', user });
-        } catch (err) {
-            res.status(500).json({ message: 'Error registering user', error: err });
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return response.status(400).json({ message: 'User already exists' });
         }
+
+        // Create new user
+        User.create(request.body)
+        .then((user) => {
+            response.status(200).json(user);
+        })
+        .catch((error) => {
+            response.status(400).json({ message: error.message });
+        })
     },
 
-    // Login user
-    login: async (req, res) => {
-        try {
-            const { email, password } = req.body;
+    login: async (request, response) => {
+        const { email, password } = request.body;
 
-            // Check if user exists
-            const user = await User.findOne({ email });
-            if (!user) {
-                return res.status(400).json({ message: 'Invalid email or password' });
-            }
-
-            // Compare password
-            const isValidPassword = await bcrypt.compare(password, user.password);
-            if (!isValidPassword) {
-                return res.status(400).json({ message: 'Invalid email or password' });
-            }
-
-            // Generate JWT token
-            const token = generateToken(user);
-
-            // Send response with token
-            res
-                .cookie('usertoken', token, { httpOnly: true })
-                .status(200)
-                .json({ message: 'Login successful', user });
-        } catch (err) {
-            res.status(500).json({ message: 'Error logging in user', error: err });
+        const user = await User.findOne({ email });
+        if (!user) {
+            return response.status(400).json({ message: 'Invalid email or password' });
         }
-    },
 
+        const isValidPassword = await bcrypt.compare(password, user.password);
+        if (!isValidPassword) {
+            return response.status(400).json({ message: 'Invalid email or password' });
+        }
+
+        const token = generateToken(user);
+
+        response
+            .cookie('usertoken', token, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production', // Only set secure in production
+                sameSite: 'strict'
+            })
+            .status(200)
+            .json({ message: 'Login successful', user, token });
+    },
     // Logout user
-    logout: (req, res) => {
-        res.clearCookie('usertoken');
-        res.sendStatus(200);
+    logout: async (request, response) => {
+        response.clearCookie('usertoken');
+        response.sendStatus(200);
     },
 
-    // Get all users (admin only)
-    getAllUsers: async (req, res) => {
-        try {
-            const users = await User.find();
-            res.status(200).json({ users });
-        } catch (err) {
-            res.status(500).json({ message: 'Error fetching users', error: err });
-        }
+    // Get all users (modified to handle role filtering)
+    getAllUsers: async (request, response) => {
+        const users = await User.find();
+        response.status(200).json({ users });
     },
 
     // Get user by ID
-    getUserById: async (req, res) => {
-        try {
-            const user = await User.findById(req.params.id);
-            if (!user) {
-                return res.status(404).json({ message: 'User not found' });
-            }
-            res.status(200).json({ user });
-        } catch (err) {
-            res.status(500).json({ message: 'Error fetching user', error: err });
+    getUserById: async (request, response) => {
+        const user = await User.findById(request.params.id);
+        if (!user) {
+            return response.status(404).json({ message: 'User not found' });
         }
+        response.status(200).json({ user });
     },
 
     // Update user by ID
-    updateUserById: async (req, res) => {
-        try {
-            const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
-            if (!user) {
-                return res.status(404).json({ message: 'User not found' });
-            }
-            res.status(200).json({ message: 'User updated successfully', user });
-        } catch (err) {
-            res.status(500).json({ message: 'Error updating user', error: err });
+    updateUserById: async (request, response) => {
+        const user = await User.findByIdAndUpdate(request.params.id, request.body, { new: true });
+        if (!user) {
+            return response.status(404).json({ message: 'User not found' });
         }
+        response.status(200).json({ message: 'User updated successfully', user });
     },
 
     // Delete user by ID
-    deleteUserById: async (req, res) => {
-        try {
-            const user = await User.findByIdAndDelete(req.params.id);
-            if (!user) {
-                return res.status(404).json({ message: 'User not found' });
-            }
-            res.status(200).json({ message: 'User deleted successfully' });
-        } catch (err) {
-            res.status(500).json({ message: 'Error deleting user', error: err });
+    deleteUserById: async (request, response) => {
+        const user = await User.findByIdAndDelete(request.params.id);
+        if (!user) {
+            return response.status(404).json({ message: 'User not found' });
         }
+        response.status(200).json({ message: 'User deleted successfully' });
     }
 };

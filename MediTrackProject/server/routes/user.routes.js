@@ -4,10 +4,10 @@ const { authenticate } = require('../config/jwt.config'); // Import authenticate
 
 module.exports = app => {
     // User routes
-    app.post("/api/register", async (req, res, next) => {
-        const userCount = await User.countDocuments(); // Use User model to count documents
+    app.post("/api/register", async (request, response, next) => {
+        const userCount = await User.countDocuments();
         if (userCount > 0) {
-            return authenticate(req, res, next);
+            return authenticate(request, response, next);
         }
         next();
     }, Users.register);  // Register route (conditionally protected)

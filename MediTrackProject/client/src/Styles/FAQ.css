@@ -33,8 +33,10 @@
   
   .faq-answer {
     padding-top: 10px;
-    font-size: 16px;
+    font-size: 20px;
     color: #ffffff;
+    text-align: left;
+  
   }
   
   .toggle-icon {

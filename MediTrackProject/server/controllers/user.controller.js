@@ -66,6 +66,12 @@ module.exports = {
         response.status(200).json({ users });
     },
 
+    // Function to retrieve all users with role 'patient'
+    getAllPatients: async (request, response) => {
+        const patients = await User.find({ role: 'patient' });
+        response.status(200).json({ patients });
+    },
+
     // Get user by ID
     getUserById: async (request, response) => {
         const user = await User.findById(request.params.id);

@@ -17,6 +17,9 @@ module.exports = app => {
     // Protected route (requires authentication)
     app.get("/api/users", authenticate, Users.getAllUsers);  // Get all users route
 
+    // Route to get all patients (protected route)
+    app.get("/api/patients", authenticate, Users.getAllPatients);
+
     // CRUD routes (protected routes require authentication)
     app.get("/api/user/:id", authenticate, Users.getUserById);  // Get one user by ID
     app.put("/api/user/:id", authenticate, Users.updateUserById);  // Update user by ID

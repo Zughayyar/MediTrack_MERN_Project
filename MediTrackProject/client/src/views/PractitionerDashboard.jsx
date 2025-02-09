@@ -8,6 +8,7 @@ import { useAuth } from '../components/users/AuthContext.jsx';
 import {useNavigate, useLocation, Outlet} from "react-router-dom"; // Import useLocation
 const { Header, Content, Footer, Sider } = Layout;
 import axios from "axios";
+import MedicalHistory from "../components/management/MedicalHistory.jsx"; // Import MedicalHistory component
 
 const PractitionerDashboard = () => {
     const [collapsed, setCollapsed] = useState(false);
@@ -108,7 +109,7 @@ const PractitionerDashboard = () => {
                         </div>
                         <Row gutter={[16, 16]}>
                             <Col span={24}>
-                                <Outlet/>
+                                <Outlet context={{ user }} /> {/* Pass user as context to Outlet */}
                             </Col>
                         </Row>
                     </Content>

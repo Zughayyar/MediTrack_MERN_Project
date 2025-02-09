@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
-import {Card, Col, Layout, Menu, Row} from "antd";
-import { HomeOutlined, CalendarOutlined, FileTextOutlined } from "@ant-design/icons";
+import {Col, Layout, Menu, Row} from "antd";
+import {CalendarOutlined, HomeOutlined, MedicineBoxOutlined, DiffOutlined} from "@ant-design/icons";
 import '../styles/PractDashboard.css';
 import MediTrackerLogo from '../images/MediTracker.png';
 import LogoutButton from "../components/users/LogoutButton.jsx";
 import { useAuth } from '../components/users/AuthContext.jsx';
-import { useNavigate, useLocation } from "react-router-dom"; // Import useLocation
+import {useNavigate, useLocation, Outlet} from "react-router-dom"; // Import useLocation
 const { Header, Content, Footer, Sider } = Layout;
-import { Typography } from "antd";
 import axios from "axios";
 
 const PractitionerDashboard = () => {
@@ -16,7 +15,6 @@ const PractitionerDashboard = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [selectedKey, setSelectedKey] = useState("1");
-    const { Title, Text } = Typography;
 
     useEffect(() => {
         const checkUserRole = async () => {
@@ -38,13 +36,16 @@ const PractitionerDashboard = () => {
     }, [user, navigate, logout]);
 
 
-
-
-
     useEffect(() => {
         const path = location.pathname;
         if (path === "/practDashboard" || path === "/practDashboard/home") {
             setSelectedKey("1");
+        } else if (path === "/practDashboard/medicalHistory") {
+            setSelectedKey("2");
+        } else if (path === "/practDashboard/appointments") {
+            setSelectedKey("3");
+        } else if (path === "/practDashboard/prescription") {
+            setSelectedKey("4");
         }
     }, [location.pathname]); // Add location.pathname to dependency array
 
@@ -53,9 +54,27 @@ const PractitionerDashboard = () => {
     const menuItems = [
         {
             key: "1",
-            icon: <HomeOutlined />,
-            label: "Practitioner Dashboard", // Safe access to user.firstName
-            onClick: () => navigate("/practDashboard")
+            icon: <HomeOutlined/>,
+            label: "Practitioner Dashboard",
+            onClick: () => navigate("/practDashboard/home")
+        },
+        {
+            key: "2",
+            icon: <MedicineBoxOutlined/>,
+            label: "Medical History",
+            onClick: () => navigate("/practDashboard/medicalHistory")
+        },
+        {
+            key: "3",
+            icon: <CalendarOutlined/>,
+            label: "Appointments",
+            onClick: () => navigate("/practDashboard/appointments")
+        },
+        {
+            key: "4",
+            icon: <DiffOutlined/>,
+            label: "Prescriptions",
+            onClick: () => navigate("/practDashboard/prescription")
         }
     ];
 
@@ -84,31 +103,12 @@ const PractitionerDashboard = () => {
                 </Sider>
                 <Layout className="dashboard-main">
                     <Content className="dashboard-content">
-                        <Col span={24}>
-                            <Card>
-                                <Text>Welcome Dr. {user ? user.firstName : "Guest"}</Text>
-                            </Card>
-                        </Col>
+                        <div className="dashboard-welcome-container">
+                            {user ? `Welcome, Dr. ${user.firstName} ${user.lastName}` : "Loading..."}
+                        </div>
                         <Row gutter={[16, 16]}>
-                            {/* Medical History Section */}
                             <Col span={24}>
-                                <Card className="dashboard-card" title={<Title level={4}><FileTextOutlined /> Medical History</Title>}>
-                                    <Text>View and update patient medical history.</Text>
-                                </Card>
-                            </Col>
-
-                            {/* Schedule Appointments Section */}
-                            <Col span={24}>
-                                <Card className="dashboard-card" title={<Title level={4}><CalendarOutlined /> Schedule Appointments</Title>}>
-                                    <Text>Manage upcoming patient appointments.</Text>
-                                </Card>
-                            </Col>
-
-                            {/* Prescriptions Section */}
-                            <Col span={24}>
-                                <Card className="dashboard-card" title={<Title level={4}><FileTextOutlined /> Prescriptions</Title>}>
-                                    <Text>Create and manage patient prescriptions.</Text>
-                                </Card>
+                                <Outlet/>
                             </Col>
                         </Row>
                     </Content>

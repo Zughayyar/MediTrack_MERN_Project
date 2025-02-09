@@ -5,10 +5,17 @@ import AssistantDashboard from "./views/AssistantDashboard";
 import Home from "./components/homePage/Home";
 import News from "./components/homePage/News";
 import AboutUs from "./components/homePage/AboutUs";
-import AdminHome from "./components/admin/AdminHome";
+import AdminHome from "./components/userView/AdminHome";
 import UsersList from "./components/users/UsersList";
 import UserForm from "./components/users/UserForm";
 import PractitionerDashboard from "./views/PractitionerDashboard.jsx";
+import NotFound from "./components/Not Found/NotFound.jsx";
+import MedicalHistory from "./components/management/MedicalHistory.jsx";
+import PractHome from "./components/userView/PractHome.jsx";
+import Appointment from "./components/management/Appointment.jsx";
+import Prescription from "./components/management/Prescription.jsx";
+import 'normalize.css'
+import AssistHome from "./components/userView/AssistHome.jsx";
 
 const App = () => {
     return (
@@ -29,10 +36,22 @@ const App = () => {
             </Route>
 
             {/*Practitioner Dashboard Routes*/}
-            <Route path='/practDashboard' element={<PractitionerDashboard/>} />
+            <Route path='/practDashboard' element={<PractitionerDashboard/>} >
+                <Route index path='home' element={<PractHome/>} />
+                <Route path='medicalHistory' element={<MedicalHistory/>} />
+                <Route path='appointments' element={<Appointment/>} />
+                <Route path='prescription' element={<Prescription/>} />
+            </Route>
 
             {/*Assistant Dashboard Routes*/}
-            <Route path='/assistDashboard' element={<AssistantDashboard/>} />
+            <Route path='/assistDashboard' element={<AssistantDashboard/>} >
+                <Route index path='home' element={<AssistHome/>} />
+                <Route path='appointments' element={<Appointment/>} />
+            </Route>
+
+
+            {/* Catch-all route for undefined paths */}
+            <Route path="*" element={<NotFound />} />
 
         </Routes>
     );

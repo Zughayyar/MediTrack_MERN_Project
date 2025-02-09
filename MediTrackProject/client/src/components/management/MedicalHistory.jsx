@@ -72,6 +72,7 @@ const MedicalHistory = () => {
             title: 'Date',
             dataIndex: 'date',
             key: 'date',
+            render: (date) => moment(date).format('YYYY-MM-DD | HH:mm'), // Change this line
         },
         {
             title: 'Patient',

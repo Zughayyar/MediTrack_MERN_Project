@@ -37,6 +37,9 @@ const AdminDashboard = () => {
         }
     }, [user, navigate, logout]);
 
+
+
+
     useEffect(() => {
         const path = location.pathname;
         if (path === "/adminDashboard" || path === "/adminDashboard/home") {

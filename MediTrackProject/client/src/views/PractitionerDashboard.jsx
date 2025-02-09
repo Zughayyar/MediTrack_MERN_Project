@@ -5,10 +5,9 @@ import '../styles/PractDashboard.css';
 import MediTrackerLogo from '../images/MediTracker.png';
 import LogoutButton from "../components/users/LogoutButton.jsx";
 import { useAuth } from '../components/users/AuthContext.jsx';
-import {useNavigate, useLocation, Outlet} from "react-router-dom"; // Import useLocation
+import {useNavigate, useLocation, Outlet} from "react-router-dom"; 
 const { Header, Content, Footer, Sider } = Layout;
 import axios from "axios";
-import MedicalHistory from "../components/management/MedicalHistory.jsx"; // Import MedicalHistory component
 
 const PractitionerDashboard = () => {
     const [collapsed, setCollapsed] = useState(false);
@@ -36,6 +35,12 @@ const PractitionerDashboard = () => {
         }
     }, [user, navigate, logout]);
 
+
+    useEffect(() => {
+        if (window.location.pathname === '/practDashboard') {
+            navigate('/practDashboard/home');
+        }
+    }, [navigate]);
 
     useEffect(() => {
         const path = location.pathname;

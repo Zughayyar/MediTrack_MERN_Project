@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import { Card, Col, Layout, Menu, Row } from "antd";
+import { Col, Layout, Menu } from "antd";
 import { HomeOutlined, CalendarOutlined } from "@ant-design/icons";
-import "../styles/PractDashboard.css";
+import "../styles/AssistDashboard.css";
 import MediTrackerLogo from "../images/MediTracker.png";
 import LogoutButton from "../components/users/LogoutButton.jsx";
 import { useAuth } from "../components/users/AuthContext.jsx";
-import { useNavigate, useLocation } from "react-router-dom"; // Import useLocation
-import { Typography } from "antd";
+import {useNavigate, useLocation, Outlet} from "react-router-dom"; // Import useLocation
+
 import axios from "axios";
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -17,7 +17,6 @@ const AssistantDashboard = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [selectedKey, setSelectedKey] = useState("1");
-    const { Title, Text } = Typography;
 
     useEffect(() => {
         const checkUserRole = async () => {
@@ -42,6 +41,8 @@ const AssistantDashboard = () => {
         const path = location.pathname;
         if (path === "/assistDashboard" || path === "/assistDashboard/home") {
             setSelectedKey("1");
+        } else if (path === "/assistDashboard/appointments") {
+            setSelectedKey("2");
         }
     }, [location.pathname]);
 
@@ -52,7 +53,13 @@ const AssistantDashboard = () => {
             key: "1",
             icon: <HomeOutlined />,
             label: "Assistant Dashboard",
-            onClick: () => navigate("/assistDashboard"),
+            onClick: () => navigate("/assistDashboard/home"),
+        },
+        {
+            key: "2",
+            icon: <CalendarOutlined/>,
+            label: "Appointments",
+            onClick: () => navigate("/assistDashboard/appointments")
         },
     ];
 
@@ -81,21 +88,12 @@ const AssistantDashboard = () => {
                 </Sider>
                 <Layout className="dashboard-main">
                     <Content className="dashboard-content">
+                        <div className="dashboard-welcome-container">
+                            {user ? `Welcome, ${user.firstName} ${user.lastName}` : "Loading..."}
+                        </div>
                         <Col span={24}>
-                            <Card>
-                                <Text>
-                                    Welcome Assistant, {user ? `${user.firstName} ${user.lastName}` : "Loading..."}
-                                </Text>
-                            </Card>
+                            <Outlet/>
                         </Col>
-                        <Row gutter={[16, 16]}>
-                            {/* Schedule Appointments Section */}
-                            <Col span={24}>
-                                <Card className="dashboard-card" title={<Title level={4}><CalendarOutlined /> Schedule Appointments</Title>}>
-                                    <Text>Manage upcoming patient appointments.</Text>
-                                </Card>
-                            </Col>
-                        </Row>
                     </Content>
 
                     {/* Footer */}

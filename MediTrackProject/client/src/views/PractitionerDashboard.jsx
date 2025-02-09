@@ -1,21 +1,45 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {Card, Col, Layout, Menu, Row} from "antd";
 import { HomeOutlined, CalendarOutlined, FileTextOutlined } from "@ant-design/icons";
 import '../styles/PractDashboard.css';
 import MediTrackerLogo from '../images/MediTracker.png';
 import LogoutButton from "../components/users/LogoutButton.jsx";
 import { useAuth } from '../components/users/AuthContext.jsx';
-import { Outlet, useNavigate, useLocation } from "react-router-dom"; // Import useLocation
+import { useNavigate, useLocation } from "react-router-dom"; // Import useLocation
 const { Header, Content, Footer, Sider } = Layout;
 import { Typography } from "antd";
+import axios from "axios";
 
 const PractitionerDashboard = () => {
     const [collapsed, setCollapsed] = useState(false);
-    const { user } = useAuth();
+    const { user, logout } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
     const [selectedKey, setSelectedKey] = useState("1");
     const { Title, Text } = Typography;
+
+    useEffect(() => {
+        const checkUserRole = async () => {
+            if (!user || user.role !== "practitioner") {
+                alert("STOP PLAYING AROUND");
+                try {
+                    await axios.post("http://localhost:8000/api/logout", {}, { withCredentials: true });
+                    logout();
+                    navigate("/");
+                } catch (error) {
+                    console.log("Logout failed:", error);
+                }
+            }
+        };
+
+        if (user) {
+            checkUserRole().then();
+        }
+    }, [user, navigate, logout]);
+
+
+
+
 
     useEffect(() => {
         const path = location.pathname;
@@ -62,7 +86,7 @@ const PractitionerDashboard = () => {
                     <Content className="dashboard-content">
                         <Col span={24}>
                             <Card>
-                                <Text>Welcome Dr. {user.firstName}</Text>
+                                <Text>Welcome Dr. {user ? user.firstName : "Guest"}</Text>
                             </Card>
                         </Col>
                         <Row gutter={[16, 16]}>

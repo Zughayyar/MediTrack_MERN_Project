@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Form, Input, Button, Alert } from 'antd';
 import axios from 'axios';
 import '../../styles/Login.css';
-import MediTrackerLogo from '../../images/MediTracker.png';
-import { useNavigate } from 'react-router-dom';
+import MediTrackerLogo from '../../images/undefinedd.png';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthContext.jsx'; // Add this line
 
 const Login = () => {
@@ -39,8 +39,8 @@ const Login = () => {
     return (
         <div className="login-wrapper">
         <div className="login-container">
+            <Link to="/">Back to Home</Link>
             <img src={MediTrackerLogo} alt="Logo" className="login-image" />
-            
             <Form
             name="basic"
             labelCol={{ span: 8 }}

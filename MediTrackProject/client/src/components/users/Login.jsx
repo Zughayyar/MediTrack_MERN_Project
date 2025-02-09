@@ -39,8 +39,7 @@ const Login = () => {
     return (
         <div className="login-wrapper">
         <div className="login-container">
-            <Link to="/">Back to Home</Link>
-            <img src={MediTrackerLogo} alt="Logo" className="login-image" />
+            <Link to="/">{"< "} Back to Home</Link>
             <Form
             name="basic"
             labelCol={{ span: 8 }}

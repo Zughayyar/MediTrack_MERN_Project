@@ -94,7 +94,7 @@ const MedicalHistory = () => {
             title: 'Practitioner',
             dataIndex: 'practitioner',
             key: 'practitioner',
-            render: (practitioner) => `${practitioner.firstName} ${practitioner.lastName}`,
+            render: (practitioner) => practitioner ? `${practitioner.firstName} ${practitioner.lastName}` : 'Unknown Practitioner',
         },
     ];
 

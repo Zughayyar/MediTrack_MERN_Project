@@ -28,6 +28,8 @@ const Login = () => {
                     navigate('/practDashboard');
                 } else if (res.data.user.role === 'assistant') {
                     navigate('/assistDashboard');
+                } else if (res.data.user.role === 'patient') {
+                    navigate('/patientDashboard');
                 }
             })
             .catch(err => {

@@ -16,6 +16,7 @@ import Appointment from "./components/management/Appointment.jsx";
 import Prescription from "./components/management/Prescription.jsx";
 import 'normalize.css'
 import AssistHome from "./components/userView/AssistHome.jsx";
+import PatientDashboard from "./views/PatientDashboard.jsx";
 
 const App = () => {
     return (
@@ -49,6 +50,8 @@ const App = () => {
                 <Route path='appointments' element={<Appointment/>} />
             </Route>
 
+            {/*Assistant Dashboard Routes*/}
+            <Route path='/patientDashboard' element={<PatientDashboard/>} />
 
             {/* Catch-all route for undefined paths */}
             <Route path="*" element={<NotFound />} />

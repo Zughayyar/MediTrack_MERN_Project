@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Col, Layout } from "antd";
-import "../styles/PatientDashboard.css";
+import "../styles/PatientDashboard.css"; 
 import MediTrackerLogo from "../images/MediTracker.png";
 import LogoutButton from "../components/users/LogoutButton.jsx";
 import { useAuth } from "../components/users/AuthContext.jsx";

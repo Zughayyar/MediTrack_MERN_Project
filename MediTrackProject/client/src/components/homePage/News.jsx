@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "../../styles/News.css";
-import myImage from "../../images/undefined.png";
+import myImage from "../../images/MediTrackerTitle.png";
 import TopBar from "./TopBar";
 
 const News = () => {

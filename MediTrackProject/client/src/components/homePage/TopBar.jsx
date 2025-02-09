@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import "../../styles/TopBar.css";
-import logo from "../../images/undefined.png";
+import logo from "../../images/MediTrackerTitle.png";
 
 function TopBar() {
   const navigate = useNavigate();

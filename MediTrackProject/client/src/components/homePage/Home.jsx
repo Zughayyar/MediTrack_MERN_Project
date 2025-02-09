@@ -1,4 +1,4 @@
-import image from "../../images/undefinedd.png";
+import image from "../../images/MediTrackerLogo.png";
 import "../../styles/Home.css";
 import TopBar from "./TopBar";
 

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form, Input, Button, Alert } from 'antd';
 import axios from 'axios';
 import '../../styles/Login.css';
-import MediTrackerLogo from '../../images/undefinedd.png';
+import MediTrackerLogo from '../../images/MediTrackerLogo.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthContext.jsx'; // Add this line
 

@@ -80,4 +80,31 @@
       padding-left: 1rem; /* Less padding for list */
     }
   }
+  .team-slider {
+    margin-top: 2rem;
+  }
+  
+  .team-member {
+    text-align: center;
+    padding: 1rem;
+  }
+  
+  .team-image {
+    width: 200px;
+    height: 200x;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 0.5rem;
+    margin-left:32%;
+  }
+  
+  .team-name {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  
+  .team-role {
+    font-size: 1rem;
+    color: #4a5568;
+  }
   

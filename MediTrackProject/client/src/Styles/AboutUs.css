@@ -47,11 +47,7 @@
     margin-bottom: 1.5rem; /* Tailwind's mb-6 */
   }
   
-  /* List Item */
-  .about-us-list-item {
-    font-weight: 600; /* Tailwind's font-semibold */
-    margin-bottom: 0.75rem;
-  }
+
   
   /* Highlight text */
   .highlight-text {

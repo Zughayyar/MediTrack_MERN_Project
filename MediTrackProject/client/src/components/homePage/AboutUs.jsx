@@ -36,41 +36,39 @@ const AboutUs = () => {
         <div className="about-us-card">
           <h1 className="about-us-heading">About Us</h1>
           <p className="about-us-text">
-            Welcome to <span className="highlight-text">MediTraker</span>, your trusted healthcare appointment management system. Our mission is to simplify the way patients, doctors, and healthcare facilities manage medical appointments, prescriptions, and patient records.
+          Welcome to Meditracker, your trusted healthcare management system. Our mission is to simplify clinic operations by efficiently managing roles, medical data, and prescriptions, ensuring seamless collaboration between healthcare professionals and enhanced patient care.
           </p>
 
           <h2 className="about-us-subheading">Who We Are</h2>
           <p className="about-us-text">
-            MediTraker is a cutting-edge platform designed to enhance healthcare efficiency by reducing wait times, improving patient care, and streamlining medical workflows.
+          Meditracker is an innovative platform designed to optimize clinic workflows. By offering role-based access and streamlining the management of medical records and prescriptions, we empower healthcare teams to provide better care with improved efficiency.
           </p>
 
           <h2 className="about-us-subheading">What We Offer</h2>
           <ul className="about-us-list">
-            <li className="about-us-list-item">
-              <span className="highlight-text">Easy Appointment Booking</span> – Effortless scheduling and management.
+            <li className="about-us-text">
+              <span className="highlight-text">Role-Based Access:</span>  Tailored dashboards and permissions for doctors, nurses, and assistants, ensuring clear division of responsibilities.
             </li>
-            <li className="about-us-list-item">
-              <span className="highlight-text">Real-Time Wait Time Tracking</span> – Stay updated before visiting.
+            <li className="about-us-text">
+              <span className="highlight-text">Medical Data Management:</span>  Securely store and manage patients’ medical history and visit notes, making data retrieval quick and easy.
             </li>
-            <li className="about-us-list-item">
-              <span className="highlight-text">Secure Medical Data Management</span> – Safe handling of patient records.
+            <li className="about-us-text">
+              <span className="highlight-text">Prescription Management:</span>  Generate and manage digital prescriptions with the option to export as PDFs and send them directly to patients.
             </li>
-            <li className="about-us-list-item">
-              <span className="highlight-text">Prescription Management</span> – Digital prescriptions with easy access.
-            </li>
-            <li className="about-us-list-item">
-              <span className="highlight-text">Role-Based Access</span> – Custom dashboards for doctors, nurses, and assistants.
+
+            <li className="about-us-text">
+              <span className="highlight-text">Efficient Workflow:</span>  Simplify day-to-day clinic operations by allowing healthcare professionals to focus on what matters most – patient care.
             </li>
           </ul>
 
           <h2 className="about-us-subheading">Our Vision</h2>
           <p className="about-us-text">
-            To revolutionize healthcare accessibility through smart digital solutions, ensuring a smooth experience for both patients and healthcare providers.
+          To enhance clinic operations and improve healthcare delivery by offering efficient, role-driven solutions that foster collaboration and streamline workflows.
           </p>
 
           <h2 className="about-us-subheading">Our Commitment</h2>
           <p className="about-us-text">
-            We prioritize <span className="highlight-text">security, efficiency, and ease of use</span>, making healthcare management simple and hassle-free. Your health matters, and we are here to help you every step of the way.
+          We are committed to security, efficiency, and ease of use. Our goal is to help healthcare professionals manage their clinic tasks seamlessly, so they can focus on delivering the best care to their patients.  
           </p>
 
           <h2 className="about-us-subheading">Our Team</h2>

@@ -2,8 +2,14 @@ const MedicalHistory = require('../models/medicalHistory.model');
 
 // Create Medical History
 exports.createMedicalHistory = async (req, res) => {
+    const { date, patient, visitNotes, practitioner } = req.body;
+
+    if (!date || !patient || !visitNotes || !practitioner) {
+        return res.status(400).json({ error: 'All fields are required' });
+    }
+
     try {
-        const medicalHistory = await MedicalHistory.create(req.body);
+        const medicalHistory = await MedicalHistory.create({ date, patient, visitNotes, practitioner });
         res.status(201).json(medicalHistory);
     } catch (err) {
         res.status(400).json({ error: err.message });

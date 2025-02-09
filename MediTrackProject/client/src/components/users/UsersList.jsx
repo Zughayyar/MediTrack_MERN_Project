@@ -11,6 +11,7 @@ const UsersList = () => {
     const [error, setError] = useState(null);
     const roles = ['practitioner', 'assistant', 'administrator', 'patient'];
     const [selectedRoleFilter, setSelectedRoleFilter] = useState(null);
+    const [selectedRowKeys, setSelectedRowKeys] =useState([]);
     const [tableParams, setTableParams] = useState({
         pagination: {
             current: 1,
@@ -19,12 +20,6 @@ const UsersList = () => {
     });
 
     const navigate = useNavigate();
-
-    const getRandomuserParams = (params) => ({
-        results: params.pagination?.pageSize,
-        page: params.pagination?.current,
-        ...params,
-    });
 
     const handleTableChange = (pagination, filters, sorter) => {
         setTableParams({
@@ -136,7 +131,7 @@ const UsersList = () => {
     };
 
 
-    const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+
     const onSelectChange = (newSelectedRowKeys) => {
         console.log('selectedRowKeys changed: ', newSelectedRowKeys);
         setSelectedRowKeys(newSelectedRowKeys);
@@ -152,7 +147,7 @@ const UsersList = () => {
                 key: 'odd',
                 text: 'Select Odd Row',
                 onSelect: (changeableRowKeys) => {
-                    let newSelectedRowKeys = [];
+                    let newSelectedRowKeys;
                     newSelectedRowKeys = changeableRowKeys.filter((_, index) => {
                         return index % 2 === 0;
 
@@ -164,7 +159,7 @@ const UsersList = () => {
                 key: 'even',
                 text: 'Select Even Row',
                 onSelect: (changeableRowKeys) => {
-                    let newSelectedRowKeys = [];
+                    let newSelectedRowKeys;
                     newSelectedRowKeys = changeableRowKeys.filter((_, index) => {
                         return index % 2 !== 0;
 

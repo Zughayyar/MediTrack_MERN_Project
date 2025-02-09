@@ -18,7 +18,6 @@ function TopBar() {
       </div>
       <nav className="nav-links">
         <Link to="/">Home</Link>
-        <Link to="/faq">FAQ</Link>
         <Link to="/about">About Us</Link>
         <Link to="/news">News</Link>
       </nav>

@@ -3,14 +3,12 @@ import Login from "./components/users/Login";
 import AdminDashboard from "./views/AdminDashboard";
 import AssistantDashboard from "./views/AssistantDashboard";
 import Home from "./components/homePage/Home";
-import FAQ from "./components/homePage/FAQ";
 import News from "./components/homePage/News";
 import AboutUs from "./components/homePage/AboutUs";
 import AdminHome from "./components/admin/AdminHome";
 import UsersList from "./components/users/UsersList";
 import UserForm from "./components/users/UserForm";
 import PractitionerDashboard from "./views/PractitionerDashboard.jsx";
-import DoctorDashboard from "./components/doctor/doctordashboard.jsx";
 
 const App = () => {
     return (
@@ -18,7 +16,6 @@ const App = () => {
             {/* Home Page */}
             {/*Landing Page Routes*/}
             <Route path="/" element={<Home />} />
-            <Route path="/faq" element={<FAQ />} />
             <Route path="/login" element={<Login/>} />
             <Route path="/news" element={<News />} />
             <Route path="/about" element={<AboutUs />} />
@@ -37,7 +34,6 @@ const App = () => {
             {/*Assistant Dashboard Routes*/}
             <Route path='/assistDashboard' element={<AssistantDashboard/>} />
 
-            <Route path='/doctorDashboard' element={<DoctorDashboard/>} />
         </Routes>
     );
 };

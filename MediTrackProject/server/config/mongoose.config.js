@@ -7,7 +7,9 @@ const username = process.env.ATLAS_USERNAME;
 const pw = encodeURIComponent(process.env.ATLAS_PASSWORD); // Ensure password is URL encoded
 
 // Create the MongoDB connection string
-const uri = `mongodb+srv://${username}:${pw}@mycluster.ypx3l.mongodb.net/${dbName}?retryWrites=true&w=majority&appName=MyCluster`;
+// const uri = `mongodb+srv://${username}:${pw}@mycluster.ypx3l.mongodb.net/${dbName}?retryWrites=true&w=majority&appName=MyCluster`;
+
+const uri = `mongodb+srv://${username}:${pw}@mycluster0.rlht4.mongodb.net/${dbName}?retryWrites=true&w=majority&appName=mYCluster0`
 
 // Connect to MongoDB using Mongoose
 mongoose.connect(uri)

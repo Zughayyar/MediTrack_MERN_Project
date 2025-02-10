@@ -22,6 +22,8 @@ const Appointment = () => {
         }
     };
 
+    
+
     const handleAddAppointment = async (values) => {
         try {
             await axios.post('/api/appointments', values);

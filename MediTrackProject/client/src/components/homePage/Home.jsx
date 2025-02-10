@@ -10,12 +10,7 @@ const Home = () => {
         <div className="text-container">
           <p className="title">Idea Overview</p>
           <p style={{ fontSize: "21px", marginLeft: "20px", color: "black" }}>
-            Meditracker is a healthcare appointment management system
-            designed to streamline medical appointment booking, track
-            estimated wait times, and enhance the operational efficiency of
-            healthcare facilities. The system aims to provide a seamless
-            experience for both patients and healthcare professionals
-            through an intuitive and efficient digital platform.
+ Meditracker is a comprehensive healthcare management system designed to enhance the operational efficiency of clinics by effectively managing roles, medical data, appointments, and prescriptions. The platform divides responsibilities across different clinic roles, ensuring clear access control and streamlined operations for practitioners, nurses, and assistants.
           </p>
           <br />
           <ul>

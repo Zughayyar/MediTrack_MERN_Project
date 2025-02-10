@@ -1,3 +1,4 @@
+import 'normalize.css'
 import { Routes, Route } from "react-router-dom";
 import Login from "./components/users/Login";
 import AdminDashboard from "./views/AdminDashboard";
@@ -6,7 +7,7 @@ import Home from "./components/homePage/Home";
 import News from "./components/homePage/News";
 import AboutUs from "./components/homePage/AboutUs";
 import AdminHome from "./components/userView/AdminHome";
-import UsersList from "./components/users/UsersList";
+import UsersList from "./components/listData/UsersList.jsx";
 import UserForm from "./components/users/UserForm";
 import PractitionerDashboard from "./views/PractitionerDashboard.jsx";
 import NotFound from "./components/Not Found/NotFound.jsx";
@@ -14,14 +15,13 @@ import MedicalHistory from "./components/management/MedicalHistory.jsx";
 import PractHome from "./components/userView/PractHome.jsx";
 import Appointment from "./components/management/Appointment.jsx";
 import Prescription from "./components/management/Prescription.jsx";
-import 'normalize.css'
 import AssistHome from "./components/userView/AssistHome.jsx";
 import PatientDashboard from "./views/PatientDashboard.jsx";
 
 const App = () => {
     return (
         <Routes>
-            {/* Home Page */}
+
             {/*Landing Page Routes*/}
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login/>} />

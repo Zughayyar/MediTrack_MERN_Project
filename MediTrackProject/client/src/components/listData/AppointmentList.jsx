@@ -1,4 +1,5 @@
-import {Spin, Table, Button} from "antd";
+import {Spin, Table, Button, Divider} from "antd";
+import {SyncOutlined} from '@ant-design/icons';
 import {useEffect, useState} from "react";
 import axios from "axios";
 import moment from 'moment';
@@ -61,7 +62,8 @@ const AppointmentList = () => {
 
     return (
         <div>
-            <Button onClick={fetchAppointments} disabled={loading}>Refresh</Button>
+            <Button onClick={fetchAppointments} disabled={loading}><SyncOutlined/> Refresh</Button>
+            <Divider/>
             <Spin spinning={loading}>
                 <Table columns={columns} dataSource={Array.isArray(appointments) ? appointments : []} rowKey="_id" />
             </Spin>

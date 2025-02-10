@@ -26,6 +26,17 @@ exports.getAllMedicalHistories = async (req, res) => {
     }
 };
 
+// Get Medical Histories by Patient ID
+exports.getMedicalHistoriesByPatientId = async (req, res) => {
+    try {
+        const histories = await MedicalHistory.find({ patient: req.params.patientId }).populate('patient practitioner');
+        if (!histories.length) return res.status(404).json({ error: 'No medical histories found for this patient' });
+        res.status(200).json(histories);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
 // Get One Medical History
 exports.getMedicalHistoryById = async (req, res) => {
     try {

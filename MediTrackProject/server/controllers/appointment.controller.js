@@ -31,6 +31,16 @@ exports.getAppointmentById = async (req, res) => {
     }
 };
 
+// Get Appointments by Patient ID
+exports.getAppointmentsByPatientId = async (req, res) => {
+    try {
+        const appointments = await Appointment.find({ patient: req.params.patientId }).populate('patient practitioner');
+        res.status(200).json(appointments);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
 // Update Appointment
 exports.updateAppointment = async (req, res) => {
     try {

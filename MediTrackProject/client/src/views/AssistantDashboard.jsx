@@ -6,9 +6,7 @@ import MediTrackerLogo from "../images/MediTracker.png";
 import LogoutButton from "../components/users/LogoutButton.jsx";
 import { useAuth } from "../components/users/AuthContext.jsx";
 import {useNavigate, useLocation, Outlet} from "react-router-dom"; // Import useLocation
-
 import axios from "axios";
-
 const { Header, Content, Footer, Sider } = Layout;
 
 const AssistantDashboard = () => {

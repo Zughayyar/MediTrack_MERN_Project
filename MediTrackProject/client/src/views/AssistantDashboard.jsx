@@ -92,7 +92,7 @@ const AssistantDashboard = () => {
                             {user ? `Welcome, ${user.firstName} ${user.lastName}` : "Loading..."}
                         </div>
                         <Col span={24}>
-                            <Outlet/>
+                            <Outlet context={{ user }}/>
                         </Col>
                     </Content>
 

@@ -127,7 +127,39 @@ const MedicalHistory = () => {
     return (
         <Spin spinning={loading} tip="Loading...">
             <Card className="dashboard-card" title={<Title level={4}><MedicineBoxOutlined/> Medical History</Title>}>
-                <Table 
+                <Form form={form} onFinish={onFinish} layout="vertical" style={{ marginTop: 20 }}>
+                    <Form.Item name="patient" label="Patient" rules={[{ required: true, message: 'Please select a patient!' }]}>
+                        <Select
+                            showSearch
+                            placeholder="Select a patient"
+                            optionFilterProp="children"
+                            filterOption={(input, option) =>
+                                String(option.children).toLowerCase().includes(input.toLowerCase())
+                            }
+                            disabled={isPatientLocked}
+                        >
+                            {patients.map(patient => (
+                                <Select.Option key={patient._id} value={patient._id}>
+                                    {patient.firstName} {patient.lastName}
+                                </Select.Option>
+                            ))}
+                        </Select>
+                    </Form.Item>
+                    <Form.Item>
+                        <Button onClick={togglePatientLock} style={{ marginTop: 10 }}>
+                            {isPatientLocked ? 'Unlock Patient' : 'Lock Patient'}
+                        </Button>
+                    </Form.Item>
+                    <Form.Item name="visitNote" label="Visit Note" rules={[{ required: true, message: 'Please input the visit note!' }]}>
+                        <TextArea />
+                    </Form.Item>
+                    <Form.Item>
+                        <Button type="primary" htmlType="submit">Add Entry</Button>
+                    </Form.Item>
+                </Form>
+                <br/>
+                <Divider style={{borderColor: '#7cb305',}}>Medical History</Divider>
+                <Table
                     columns={columns} 
                     dataSource={Array.isArray(medicalHistories) ? medicalHistories.map(history => ({ ...history, key: history._id })) : []} 
                     pagination={false} 

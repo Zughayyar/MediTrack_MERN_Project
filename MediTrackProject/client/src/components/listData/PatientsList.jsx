@@ -25,9 +25,8 @@ export const fetchPatients = async () => {
     }
 };
 
-const PatientsList = () => {
+export const usePatients = () => {
     const [patients, setPatients] = useState([]);
-    const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -39,6 +38,14 @@ const PatientsList = () => {
 
         fetchPatientsData().then();
     }, []);
+
+    return { patients, loading };
+};
+
+const PatientsList = () => {
+    const { patients, loading } = usePatients();
+
+    const [error, setError] = useState(null);
 
     if (error) {
         return <div>Error: {error}</div>;

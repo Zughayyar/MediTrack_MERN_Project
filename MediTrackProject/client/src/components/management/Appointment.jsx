@@ -1,62 +1,52 @@
 import { useState, useEffect } from 'react';
-import { Card, Table, Button, Modal, Form, Input, DatePicker, Typography } from 'antd';
+import { Card, Button, Modal, Form, Input, DatePicker, Typography, Divider, Select } from 'antd';
 import { CalendarOutlined } from "@ant-design/icons";
 import axios from 'axios';
+import AppointmentList from "../listData/AppointmentList.jsx";
+import { usePatients } from '../listData/PatientsList.jsx';
+import { useOutletContext } from 'react-router-dom';
 const { Title } = Typography;
 
 const Appointment = () => {
-    const [appointments, setAppointments] = useState([]);
+
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [form] = Form.useForm();
+    const { patients, loading } = usePatients();
+    const { user } = useOutletContext(); 
+    const [appointments, setAppointments] = useState([]);
 
-    useEffect(() => {
-        fetchAppointments().then();
-    }, []);
+    const updateAppointments = (newAppointments) => {
+        setAppointments(newAppointments);
+    };
 
     const fetchAppointments = async () => {
         try {
             const response = await axios.get('http://localhost:8000/api/appointments', {withCredentials: true});
-            setAppointments(response.data);
+            updateAppointments(response.data);
         } catch (error) {
             console.error('Failed to fetch appointments:', error);
         }
     };
 
-    
+    const forceUpdateAppointments = async () => {
+        await fetchAppointments();
+    };
+
+    useEffect(() => {
+        fetchAppointments();
+    }, []);
 
     const handleAddAppointment = async (values) => {
         try {
-            await axios.post('/api/appointments', values);
-            await fetchAppointments();
+            values.practitioner = user._id; 
+            const response = await axios.post('http://localhost:8000/api/appointments', values, {withCredentials: true});
             setIsModalOpen(false);
             form.resetFields();
+            await fetchAppointments(); 
         } catch (error) {
             console.error('Failed to add appointment:', error);
         }
     };
-
-    const columns = [
-        {
-            title: 'Patient',
-            dataIndex: 'patient',
-            key: 'patient',
-        },
-        {
-            title: 'Practitioner',
-            dataIndex: 'practitioner',
-            key: 'practitioner',
-        },
-        {
-            title: 'Date',
-            dataIndex: 'date',
-            key: 'date',
-        },
-        {
-            title: 'Status',
-            dataIndex: 'status',
-            key: 'status',
-        },
-    ];
 
     return (
         <div>
@@ -64,7 +54,8 @@ const Appointment = () => {
                 <Button type="primary" onClick={() => setIsModalOpen(true)}>
                     Add Appointment
                 </Button>
-                <Table columns={columns} dataSource={Array.isArray(appointments) ? appointments : []} rowKey="_id" />
+                <Divider />
+                <AppointmentList appointments={appointments} forceUpdateAppointments={forceUpdateAppointments} />
                 <Modal
                     title="Add Appointment"
                     open={isModalOpen}
@@ -72,20 +63,22 @@ const Appointment = () => {
                     footer={null}
                 >
                     <Form form={form} onFinish={handleAddAppointment}>
-                        <Form.Item
-                            name="patient"
-                            label="Patient"
-                            rules={[{ required: true, message: 'Please input the patient!' }]}
+                    <Form.Item name="patient" label="Patient" rules={[{ required: true, message: 'Please select a patient!' }]}>
+                        <Select
+                            showSearch
+                            placeholder="Select a patient"
+                            optionFilterProp="children"
+                            filterOption={(input, option) =>
+                                String(option.children).toLowerCase().includes(input.toLowerCase())
+                            }
                         >
-                            <Input />
-                        </Form.Item>
-                        <Form.Item
-                            name="practitioner"
-                            label="Practitioner"
-                            rules={[{ required: true, message: 'Please input the practitioner!' }]}
-                        >
-                            <Input />
-                        </Form.Item>
+                            {patients.map(patient => (
+                                <Select.Option key={patient._id} value={patient._id}>
+                                    {patient.firstName} {patient.lastName}
+                                </Select.Option>
+                            ))}
+                        </Select>
+                    </Form.Item>
                         <Form.Item
                             name="date"
                             label="Date"

@@ -1,51 +1,72 @@
 import image from "../../images/MediTrackerLogo.png";
 import "../../styles/Home.css";
 import TopBar from "./TopBar";
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 const Home = () => {
+  const [news, setNews] = useState([]);
+
+  useEffect(() => {
+    fetch("https://newsapi.org/v2/top-headlines?category=health&country=us&apiKey=3b3cf30a09ad45bf887dc95e9cf241a7")
+      .then((response) => response.json())
+      .then((data) => setNews(data.articles.slice(0, 5)))
+      .catch((error) => console.error("Error fetching news:", error));
+  }, []);
+
   return (
     <>
       <TopBar />
-      <div className="container">
-        <div className="text-container">
-          <p className="title">Idea Overview</p>
-          <p style={{ fontSize: "21px", marginLeft: "20px", color: "black" }}>
- Meditracker is a comprehensive healthcare management system designed to enhance the operational efficiency of clinics by effectively managing roles, medical data, appointments, and prescriptions. The platform divides responsibilities across different clinic roles, ensuring clear access control and streamlined operations for practitioners, nurses, and assistants.
-          </p>
-          <br />
-          <ul>
-            <li>
-              <strong>Role-Based Access Control:</strong> Different access levels for
-              Practitioners, Nurses, and Assistants.
-            </li>
-            <br />
-            <li>
-              <strong>Medical Data Management:</strong> Storage and management of
-              general medical history and visit notes.
-            </li>
-            <br />
-            <li>
-              <strong>Appointment Management:</strong> Features for booking, scheduling,
-              and tracking estimated wait times.
-            </li>
-            <br />
-            <li>
-              <strong>Prescription Management:</strong> Ability to generate prescriptions,
-              export them as PDFs, and send them via email.
-            </li>
-          </ul>
-        </div>
-
-        <div className="phone-frame">
-          <div className="logo-phone">
-            <img
-              alt="Logo of a running person with Arabic text below"
-              height="100"
-              src={image}
-              width="100"
-            />
-          </div>
-        </div>
+      <div className="news-container">
+        <motion.h2 
+          className="news-title"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          Latest Medical News
+        </motion.h2>
+        <motion.div 
+          className="news-list"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+        >
+          {news.map((article, index) => (
+            <motion.div 
+              key={index} 
+              className="news-card"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: index * 0.2 }}
+              whileHover={{ scale: 1.05 }}
+            >
+              <motion.img 
+                src={article.urlToImage} 
+                alt={article.title} 
+                className="news-image"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.7, delay: index * 0.2 }}
+                style={{ width: "100px", height: "100px", objectFit: "cover", borderRadius: "10px" }}
+              />
+              <div className="news-content" style={{ textAlign: "center", padding: "10px" }}>
+                <h3 className="news-headline" style={{ fontSize: "16px", fontWeight: "bold" }}>{article.title}</h3>
+                <p className="news-description" style={{ fontSize: "14px", color: "#555" }}>{article.description}</p>
+                <motion.a 
+                  href={article.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="news-link"
+                  whileHover={{ scale: 1.1 }}
+                  style={{ display: "inline-block", marginTop: "10px", fontSize: "14px", color: "#007bff" }}
+                >
+                  Read more
+                </motion.a>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
     </>
   );

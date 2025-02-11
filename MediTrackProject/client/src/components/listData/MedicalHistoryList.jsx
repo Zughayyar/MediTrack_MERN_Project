@@ -2,7 +2,7 @@ import {Table, Spin, message} from "antd";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import { fetchPatients } from "./PatientsList.jsx";
-import moment from "moment";
+// import moment from "moment";
 
 const MedicalHistoryList = () => {
     const [medicalHistories, setMedicalHistories] = useState([]);

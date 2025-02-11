@@ -17,6 +17,7 @@ import Appointment from "./components/management/Appointment.jsx";
 import Prescription from "./components/management/Prescription.jsx";
 import AssistHome from "./components/userView/AssistHome.jsx";
 import PatientDashboard from "./views/PatientDashboard.jsx";
+import Chat from './components/chats/Chat.jsx';
 
 const App = () => {
     return (
@@ -50,8 +51,10 @@ const App = () => {
                 <Route path='appointments' element={<Appointment/>} />
             </Route>
 
-            {/*Assistant Dashboard Routes*/}
+            {/*Patient Dashboard Routes*/}
             <Route path='/patientDashboard' element={<PatientDashboard/>} />
+
+            <Route path='/chat' element={<Chat/>} />
 
             {/* Catch-all route for undefined paths */}
             <Route path="*" element={<NotFound />} />

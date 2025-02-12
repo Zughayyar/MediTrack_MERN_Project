@@ -11,7 +11,7 @@ const Home = () => {
   useEffect(() => {
     fetch("https://newsapi.org/v2/top-headlines?category=health&country=us&apiKey=3b3cf30a09ad45bf887dc95e9cf241a7")
       .then((response) => response.json())
-      .then((data) => setNews(data.articles.slice(0, 5)))
+      .then((data) => setNews(data.articles.slice(0, 10))) // Increased the number of articles to 10
       .catch((error) => console.error("Error fetching news:", error));
   }, []);
 

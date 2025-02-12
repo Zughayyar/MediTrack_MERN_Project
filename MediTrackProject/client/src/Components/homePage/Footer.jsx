@@ -17,8 +17,8 @@ function Footer() {
 
         <div className="footer-section">
           <h3>Contact Information</h3>
-          <p>📍 Ramallah, Palestine<br />Al-Masayf, Ogaret Axsos</p> {/* ✅ Capitalized location for consistency */}
-          <p>📞 Phone Number<br />0591234123</p>
+          <p>📍 Ramallah, Palestine<br /><span style={{marginLeft:"20px"}}>Al-Masayf, Ogaret Axsos</span></p> {/* ✅ Capitalized location for consistency */}
+          <p>📞 Phone Number<br /><span style={{marginLeft:"20px"}}>0591234123</span></p>
         </div>
 
         <div className="footer-section">

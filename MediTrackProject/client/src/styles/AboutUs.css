@@ -86,21 +86,48 @@
   }
   
   .team-image {
-    width: 200px;
-    height: 200x;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 0.5rem;
-    margin-left:32%;
+    margin-bottom: 15px;
   }
   
   .team-name {
-    font-size: 1.25rem;
-    font-weight: bold;
+    font-size: 1.5em;
+    margin: 10px 0;
   }
   
   .team-role {
-    font-size: 1rem;
-    color: #4a5568;
+    font-size: 1.2em;
+    color: #777;
+    white-space: pre-line; /* Ensure new lines are respected */
+  }
+
+  .team-member-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+  }
+
+  .team-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 15px;
   }
   
+  .team-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+  }
+  
+  .team-member-info {
+    text-align: center;
+  }

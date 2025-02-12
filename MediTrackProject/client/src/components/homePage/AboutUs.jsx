@@ -3,11 +3,13 @@ import "../../styles/AboutUs.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import TurkImage from "../../images/Turk.jpg";
+
 const teamMembers = [
-  { name: "Sami", role: "FrontEnd Developer", image: "https://i.ibb.co/4kbc7mM/unnamed-removebg-preview.png"},
-  { name: "Mohammad Al-Turk", role: "Lead Developer", image: "https://trello-members.s3.amazonaws.com/673c5602aee922fd51bafa87/c31a31e558be043b197381306668eb3a/170.png" },
-  { name: "Yasser Alzoubi", role: "FrontEnd Developer", image: "https://i.ibb.co/HTTNXLtC/download-1.png" },
-  { name: "Anas Zughayyar", role: "Backend Developer", image: "https://i.ibb.co/jvPq32NC/image-2025-02-09-100326579.png" },
+  { name: "Sami", role: "Full-Stack Developer", image: "https://i.ibb.co/4kbc7mM/unnamed-removebg-preview.png" },
+  { name: "Mohammad Al-Turk", role: "Team Lead\nFull-Stack Developer", image: TurkImage },
+  { name: "Yasser Alzoubi", role: "Full-Stack Developer", image: "https://i.ibb.co/HTTNXLtC/download-1.png" },
+  { name: "Anas Zughayyar", role: "Full-Stack Developer", image: "https://i.ibb.co/jvPq32NC/image-2025-02-09-100326579.png" },
 ];
 
 const AboutUs = () => {
@@ -74,10 +76,16 @@ const AboutUs = () => {
           <h2 className="about-us-subheading">Our Team</h2>
           <Slider {...sliderSettings} className="team-slider">
             {teamMembers.map((member, index) => (
-              <div key={index} className="team-member">
-                <img src={member.image} alt={member.name} className="team-image" />
-                <h3 className="team-name">{member.name}</h3>
-                <p className="team-role">{member.role}</p>
+              <div key={index} className="team-member-card">
+                <div className="team-image-container">
+                  <img src={member.image} alt={member.name} className="team-image" />
+                </div>
+                <div className="team-member-info">
+                  <h3 className="team-name">{member.name}</h3>
+                  <p className="team-role">{member.role.split('\n').map((line, i) => (
+                    <span key={i}>{line}<br /></span>
+                  ))}</p>
+                </div>
               </div>
             ))}
           </Slider>

@@ -83,7 +83,10 @@ const PractitionerDashboard = () => {
             <Header className="dashboard-header">
                 <div className="header-title">
                     <img src={MediTrackerLogo} alt="Logo" className="dashboard-image" />
-                    <LogoutButton />
+                    <div style={{ flex: 1 }}></div> {/* Spacer */}
+                    <div className="logout-button">
+                        <LogoutButton />
+                    </div>
                 </div>
             </Header>
             <Layout>

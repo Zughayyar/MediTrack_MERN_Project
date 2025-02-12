@@ -236,9 +236,12 @@ const Chat = (props) => {
                                 placeholder="Type your message here..."
                                 style={{ flex: 1, marginRight: '10px' }}
                             />
-                            <Button type="primary" style={{ backgroundColor: 'green', borderColor: 'green' }} onClick={handleSendMessage}>
-                                Send
-                            </Button>
+                            <div className='send-button'>   
+                                <Button type="primary" style={{ backgroundColor: 'green', borderColor: 'green' }} onClick={handleSendMessage}>
+                                    Send
+                                </Button>
+                            </div>
+
                         </div>
 
                     </div>

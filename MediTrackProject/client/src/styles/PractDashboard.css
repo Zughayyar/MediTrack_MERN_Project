@@ -22,3 +22,8 @@
     font-weight: bold;
     font-size: 15px;
 }
+
+
+.logout-button {
+    width: 100px;
+}

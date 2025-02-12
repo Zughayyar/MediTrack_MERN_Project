@@ -4,6 +4,8 @@ import axios from 'axios';
 import '../../styles/Login.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthContext.jsx'; // Add this line
+import phone from "../../images/download (2).png";
+
 
 const Login = () => {
     const [errors, setErrors] = useState(null);
@@ -39,6 +41,7 @@ const Login = () => {
 
     return (
         <div className="login-wrapper">
+        <img src={phone} alt="" />
         <div className="login-container">
             <Link to="/">{"< "} Back to Home</Link>
             <Form
@@ -74,6 +77,7 @@ const Login = () => {
             </Form>
             {errors && <Alert description={errors} type="error" />}
         </div>
+
 
         </div>
     );

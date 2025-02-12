@@ -17,6 +17,18 @@ const Home = () => {
   return (
     <>
       <TopBar />
+      <motion.div 
+        className="about-us-card"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        style={{ background: "#fff", padding: "20px", borderRadius: "10px", boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", textAlign: "center", margin: "20px auto", maxWidth: "600px" }}
+      >
+        <h1 className="about-us-heading">MediTracker</h1>
+        <p className="about-us-text">
+          Welcome to Meditracker, your trusted healthcare management system. Our mission is to simplify clinic operations by efficiently managing roles, medical data, and prescriptions, ensuring seamless collaboration between healthcare professionals and enhanced patient care.
+        </p>
+      </motion.div>
       <div className="news-container">
         <motion.h2 
           className="news-title"
@@ -31,6 +43,7 @@ const Home = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
+          style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "20px" }}
         >
           {news.map((article, index) => (
             <motion.div 
@@ -40,6 +53,7 @@ const Home = () => {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: index * 0.2 }}
               whileHover={{ scale: 1.05 }}
+              style={{ background: "#fff", padding: "15px", borderRadius: "10px", boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", textAlign: "center" }}
             >
               <motion.img 
                 src={article.urlToImage} 
@@ -48,9 +62,9 @@ const Home = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.7, delay: index * 0.2 }}
-                style={{ width: "100px", height: "100px", objectFit: "cover", borderRadius: "10px" }}
+                style={{ width: "100%", height: "150px", objectFit: "cover", borderRadius: "10px" }}
               />
-              <div className="news-content" style={{ textAlign: "center", padding: "10px" }}>
+              <div className="news-content" style={{ padding: "10px" }}>
                 <h3 className="news-headline" style={{ fontSize: "16px", fontWeight: "bold" }}>{article.title}</h3>
                 <p className="news-description" style={{ fontSize: "14px", color: "#555" }}>{article.description}</p>
                 <motion.a 

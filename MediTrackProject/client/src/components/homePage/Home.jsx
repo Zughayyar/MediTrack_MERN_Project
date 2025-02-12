@@ -3,7 +3,7 @@ import "../../styles/Home.css";
 import TopBar from "./TopBar";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import Footer from "./footer";
+import Footer from "./Footer";
 
 
 const Home = () => {

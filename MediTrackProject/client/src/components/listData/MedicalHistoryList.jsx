@@ -1,4 +1,5 @@
-import {Table, Spin, message} from "antd";
+import {Table, Spin, message, Button, Divider} from "antd";
+import {SyncOutlined} from '@ant-design/icons';
 import {useEffect, useState} from "react";
 import axios from "axios";
 import { fetchPatients } from "./PatientsList.jsx";
@@ -8,7 +9,6 @@ const MedicalHistoryList = () => {
     const [medicalHistories, setMedicalHistories] = useState([]);
     const [loading, setLoading] = useState(true);
     const [patients, setPatients] = useState([]);
-
 
     useEffect(() => {
         const fetchPatientsData = async () => {
@@ -20,29 +20,29 @@ const MedicalHistoryList = () => {
         fetchPatientsData().then();
     }, []);
 
-    useEffect(() => {
-        const fetchMedicalHistories = async () => {
-            try {
-                const response = await axios.get(
-                    'http://localhost:8000/api/medicalHistories',
-                    { withCredentials: true },
-                );
+    const fetchMedicalHistories = async () => {
+        try {
+            const response = await axios.get(
+                'http://localhost:8000/api/medicalHistories',
+                { withCredentials: true },
+            );
 
-                if (Array.isArray(response.data)) {
-                    setMedicalHistories(response.data);
-                } else {
-                    console.error("API returned non-array data:", response.data);
-                    message.error("Invalid data format from API");
+            if (Array.isArray(response.data)) {
+                setMedicalHistories(response.data);
+            } else {
+                console.error("API returned non-array data:", response.data);
+                message.error("Invalid data format from API");
 
-                }
-            } catch (error) {
-                console.error("API Error:", error);
-                message.error("Error fetching medical histories. Please try again later.");
-            } finally {
-                setLoading(false);
             }
-        };
+        } catch (error) {
+            console.error("API Error:", error);
+            message.error("Error fetching medical histories. Please try again later.");
+        } finally {
+            setLoading(false);
+        }
+    };
 
+    useEffect(() => {
         fetchMedicalHistories().then();
     }, []);
 
@@ -51,7 +51,7 @@ const MedicalHistoryList = () => {
             title: 'Date',
             dataIndex: 'date',
             key: 'date',
-            render: (date) => moment(date).format('YYYY-MM-DD | HH:mm'), // Change this line
+            render: (date) => moment(date).format('YYYY-MM-DD | HH:mm'),
         },
         {
             title: 'Patient',
@@ -79,6 +79,10 @@ const MedicalHistoryList = () => {
 
     return (
         <Spin spinning={loading} tip="Loading...">
+            <Button type="default" onClick={() => fetchMedicalHistories()} style={{ marginLeft: '10px' }}>
+                <SyncOutlined /> Refresh
+            </Button>
+            <Divider />
             <Table
                 columns={columns}
                 dataSource={Array.isArray(medicalHistories) ? medicalHistories.map(history => ({ ...history, key: history._id })) : []}

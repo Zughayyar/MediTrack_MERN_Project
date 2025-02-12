@@ -181,7 +181,7 @@ const PatientDashboard = () => {
                             </Col>
                         </Row>
                         <Col span={24}>
-                            <Outlet/>
+                            <Outlet context={{ user }} />
                         </Col>
                     </Content>
 

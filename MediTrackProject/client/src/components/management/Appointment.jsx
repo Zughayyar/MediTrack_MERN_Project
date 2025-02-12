@@ -11,8 +11,8 @@ const Appointment = () => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [form] = Form.useForm();
+    const { user } = useOutletContext() || {}; 
     const { patients, loading } = usePatients();
-    const { user } = useOutletContext(); 
     const [appointments, setAppointments] = useState([]);
 
     const updateAppointments = (newAppointments) => {
@@ -37,6 +37,10 @@ const Appointment = () => {
     }, []);
 
     const handleAddAppointment = async (values) => {
+        if (!user || !user._id) {
+            console.error('User is not defined');
+            return;
+        }
         try {
             values.practitioner = user._id; 
             const response = await axios.post('http://localhost:8000/api/appointments', values, {withCredentials: true});

@@ -16,7 +16,8 @@ const MedicalHistory = () => {
     const [isPatientLocked, setIsPatientLocked] = useState(false);
     const [patients, setPatients] = useState([]);
     const [loading, setLoading] = useState(true);
-    const { user } = useOutletContext();
+    const outletContext = useOutletContext();
+    const user = outletContext ? outletContext.user : null;
 
     const togglePatientLock = () => {
         setIsPatientLocked(!isPatientLocked);
@@ -33,6 +34,10 @@ const MedicalHistory = () => {
     }, []);
 
     const onFinish = async (values) => {
+        if (!user) {
+            message.error('User context is not available. Please try again later.');
+            return;
+        }
         try {
             await axios.post(
                 'http://localhost:8000/api/medicalHistories',

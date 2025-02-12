@@ -5,7 +5,7 @@ import '../styles/PractDashboard.css';
 import MediTrackerLogo from '../images/MediTracker.png';
 import LogoutButton from "../components/users/LogoutButton.jsx";
 import { useAuth } from '../components/users/AuthContext.jsx';
-import {useNavigate, useLocation, Outlet} from "react-router-dom"; 
+import {useNavigate, useLocation, Outlet} from "react-router-dom"; // Import useLocation
 const { Header, Content, Footer, Sider } = Layout;
 import axios from "axios";
 
@@ -35,12 +35,6 @@ const PractitionerDashboard = () => {
         }
     }, [user, navigate, logout]);
 
-
-    useEffect(() => {
-        if (window.location.pathname === '/practDashboard') {
-            navigate('/practDashboard/home');
-        }
-    }, [navigate]);
 
     useEffect(() => {
         const path = location.pathname;
@@ -114,7 +108,7 @@ const PractitionerDashboard = () => {
                         </div>
                         <Row gutter={[16, 16]}>
                             <Col span={24}>
-                                <Outlet context={{ user }} /> {/* Pass user as context to Outlet */}
+                                <Outlet context={{ user }} />
                             </Col>
                         </Row>
                     </Content>

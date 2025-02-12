@@ -37,9 +37,6 @@ const AdminDashboard = () => {
         }
     }, [user, navigate, logout]);
 
-
-
-
     useEffect(() => {
         const path = location.pathname;
         if (path === "/adminDashboard" || path === "/adminDashboard/home") {
@@ -94,7 +91,7 @@ const AdminDashboard = () => {
                     <Content className="dashboard-content">
                         <Col span={24}>
                             <Card className="dashboard-card" title={<Title level={4}><FileTextOutlined /> Welcome, {user.firstName}</Title>}>
-                                <Outlet />
+                                <Outlet context={{ user }} />
                             </Card>
                         </Col>
                     </Content>

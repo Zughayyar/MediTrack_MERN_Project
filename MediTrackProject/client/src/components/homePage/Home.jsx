@@ -3,6 +3,7 @@ import "../../styles/Home.css";
 import TopBar from "./TopBar";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import Footer from "./footer";
 
 const Home = () => {
   const [news, setNews] = useState([]);
@@ -82,6 +83,7 @@ const Home = () => {
           ))}
         </motion.div>
       </div>
+      <Footer />
     </>
   );
 };

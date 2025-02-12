@@ -74,7 +74,7 @@ module.exports = {
 
     // Get user by ID
     getUserById: async (request, response) => {
-        const user = await User.findById(request.params.id);
+        const user = await User.findOne({ _id: request.params.id });
         if (!user) {
             return response.status(404).json({ message: 'User not found' });
         }

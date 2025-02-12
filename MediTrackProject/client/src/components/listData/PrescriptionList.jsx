@@ -3,7 +3,7 @@ import { SyncOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { fetchPatients } from "./PatientsList.jsx";
-// import moment from "moment";
+import moment from 'moment';
 
 const PrescriptionList = () => {
     const [prescriptions, setPrescriptions] = useState([]);

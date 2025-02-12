@@ -1,4 +1,4 @@
-import { Chat } from '../models/chat.model';
+const Chat = require('../models/chat.model');
 
 // Initiate chat between assistant and patient if it doesn't exist
 const initiateChat = async (patient, assistant) => {
@@ -15,8 +15,30 @@ const getAllChatsForUser = async (userId) => {
     return chats;
 };
 
+const createChat = async (req, res) => {
+    try {
+        const { participants } = req.body;
+        const chat = new Chat({ participants });
+        await chat.save();
+        res.status(201).json(chat);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
+const getAllChats = async (req, res) => {
+    try {
+        const chats = await Chat.find({ participants: req.user._id }).populate('participants', 'name');
+        res.status(200).json(chats);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
 module.exports = {
     initiateChat,
-    getAllChatsForUser
+    getAllChatsForUser,
+    createChat,
+    getAllChats
 };
 

@@ -1,4 +1,4 @@
-import {Spin, Table, Button, Divider} from "antd";
+import {Spin, Table, Button, Divider, message} from "antd";
 import {SyncOutlined} from '@ant-design/icons';
 import {useEffect, useState} from "react";
 import axios from "axios";
@@ -21,6 +21,17 @@ const AppointmentList = () => {
         } catch (error) {
             console.error('Failed to fetch appointments:', error);
             setError(error.message);
+        }
+    };
+
+    const deleteAppointment = async (id) => {
+        try {
+            await axios.delete(`http://localhost:8000/api/appointments/${id}`, { withCredentials: true });
+            message.success("Appointment deleted successfully");
+            fetchAppointments();
+        } catch (error) {
+            console.error("Error deleting appointment:", error);
+            message.error("Error deleting appointment. Please try again later.");
         }
     };
 
@@ -53,6 +64,15 @@ const AppointmentList = () => {
             title: 'Status',
             dataIndex: 'status',
             key: 'status',
+        },
+        {
+            title: 'Action',
+            key: 'action',
+            render: (_, record) => (
+                <Button type="link" danger onClick={() => deleteAppointment(record._id)}>
+                    Delete
+                </Button>
+            ),
         },
     ];
 

@@ -53,11 +53,7 @@ const App = () => {
             </Route>
 
             {/*Patient Dashboard Routes*/}
-            <Route path='/patientDashboard' element={<PatientDashboard/>}>
-                <Route path='chats' element={<Chat/>} />
-            </Route>
-
-            <Route path='/chat' element={<Chat/>} />
+            <Route path='/patientDashboard' element={<PatientDashboard/>} />
 
             {/* Catch-all route for undefined paths */}
             <Route path="*" element={<NotFound />} />

@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
-import { Col, Layout, Table, Row } from "antd";
+import { Col, Layout, Table, Row, Button, Modal, Card, Divider } from "antd"; // Import Card
 import "../styles/PatientDashboard.css"; 
 import MediTrackerLogo from "../images/MediTracker.png";
 import LogoutButton from "../components/users/LogoutButton.jsx";
 import { useAuth } from "../components/users/AuthContext.jsx";
-import {useNavigate, Outlet} from "react-router-dom"; 
+import { useNavigate, Outlet } from "react-router-dom"; 
 import axios from "axios";
-const { Header, Content, Footer } = Layout;
 import moment from 'moment';
+import Chat from "../components/chats/Chat"; // Import Chat component
+
+const { Header, Content, Footer } = Layout;
 
 const PatientDashboard = () => {
     const { user, logout } = useAuth();
@@ -15,6 +17,7 @@ const PatientDashboard = () => {
     const [appointments, setAppointments] = useState([]);
     const [medicalHistories, setMedicalHistories] = useState([]);
     const [prescriptions, setPrescriptions] = useState([]);
+    const [isChatModalVisible, setIsChatModalVisible] = useState(false); // State for Modal visibility
 
     const appointmentColumns = [
             {
@@ -140,6 +143,14 @@ const PatientDashboard = () => {
         }
     }, [user, navigate, logout]);
 
+    const showChatModal = () => {
+        setIsChatModalVisible(true);
+    };
+
+    const handleChatModalCancel = () => {
+        setIsChatModalVisible(false);
+    };
+
     return (
         <Layout className="dashboard-layout">
             <Header className="dashboard-header">
@@ -148,47 +159,62 @@ const PatientDashboard = () => {
                     <LogoutButton />
                 </div>
             </Header>
+
             <Layout>
                 <Layout className="dashboard-main">
                     <Content className="dashboard-content">
                         <div className="dashboard-welcome-container">
                             {user ? `Welcome, ${user.firstName} ${user.lastName}` : "Loading..."}
                         </div>
+                        <Button type="primary" onClick={showChatModal}>Open Chat</Button> {/* Button to open Modal */}
+                        <Divider />
                         <Row gutter={16}>
                             <Col span={8}>
-                                <Table
-                                    dataSource={appointments}
-                                    columns={appointmentColumns}
-                                    rowKey="_id"
-                                    title={() => "Appointments"}
-                                />
+                                <Card title="Appointments">
+                                    <Table
+                                        dataSource={appointments}
+                                        columns={appointmentColumns}
+                                        rowKey="_id"
+                                    />
+                                </Card>
                             </Col>
                             <Col span={8}>
-                                <Table
-                                    dataSource={medicalHistories}
-                                    columns={medicalHistoryColumns}
-                                    rowKey="_id"
-                                    title={() => "Medical Histories"}
-                                />
+                                <Card title="Medical Histories">
+                                    <Table
+                                        dataSource={medicalHistories}
+                                        columns={medicalHistoryColumns}
+                                        rowKey="_id"
+                                    />
+                                </Card>
                             </Col>
                             <Col span={8}>
-                                <Table
-                                    dataSource={prescriptions}
-                                    columns={prescriptionColumns}
-                                    rowKey="_id"
-                                    title={() => "Prescriptions"}
-                                />
+                                <Card title="Prescriptions">
+                                    <Table
+                                        dataSource={prescriptions}
+                                        columns={prescriptionColumns}
+                                        rowKey="_id"
+                                    />
+                                </Card>
                             </Col>
                         </Row>
-                        <Col span={24}>
-                            <Outlet context={{ user }} />
-                        </Col>
                     </Content>
 
                     {/* Footer */}
                     <Footer className="footer">MediTracker ©2025</Footer>
                 </Layout>
             </Layout>
+
+            {/* Modal for Chat */}
+            <Modal
+                title="Chat"
+                visible={isChatModalVisible}
+                onCancel={handleChatModalCancel}
+                footer={null}
+                width="50%" // Adjust the width
+                bodyStyle={{ height: '60vh', overflow: 'auto' }} // Adjust the height
+            >
+                <Chat user={user} /> {/* Pass user to Chat component */}
+            </Modal>
         </Layout>
     );
 };

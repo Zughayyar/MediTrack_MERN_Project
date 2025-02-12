@@ -22,6 +22,8 @@ const userRoutes = require('./routes/user.routes');
 const prescriptionRoutes = require('./routes/prescription.routes');
 const medicalHistoryRoutes = require('./routes/medicalHistory.routes');
 const appointmentRoutes = require('./routes/appointment.routes');
+const chatRoutes = require('./routes/chat.routes');
+const messageRoutes = require('./routes/message.routes');
 
 
 const server = http.createServer(app);
@@ -32,40 +34,13 @@ const io = new Server(server, {
     },
 });
 
-// Socket.io connection handler
-io.on("connection", (socket) => {
-    console.log("User connected, socket id=" + socket.id);
-
-    socket.on("sendMessage", async (data) => {
-        try {
-            // Call the existing createChat function
-            const req = { body: data };  // Simulate Express request
-            const res = {
-                json: (savedChat) => {
-                    console.log("Message saved:", savedChat);
-                    io.emit("receiveMessage", savedChat); // Send saved message to all clients
-                },
-                status: () => ({
-                    json: (err) => console.error("Error saving message:", err),
-                }),
-            };
-
-            await ChatController.createChat(req, res);
-        } catch (error) {
-            console.error("Error handling sendMessage:", error);
-        }
-    });
-
-    socket.on("disconnect", () => {
-        console.log("User disconnected, socket id=" + socket.id);
-    });
-});
-
 
 userRoutes(app);  // Register user-related routes
 prescriptionRoutes(app);  // Register prescription-related routes
 medicalHistoryRoutes(app);  // Register medical history-related routes
 appointmentRoutes(app);  // Register appointment-related routes
+chatRoutes(app);  // Register chat-related routes
+messageRoutes(app);  // Register message-related routes
 
 // Error handling middleware
 app.use((error, request, response, next) => {

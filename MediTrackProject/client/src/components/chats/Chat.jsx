@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { Layout, Menu, Input, Button } from 'antd';
+import { useState, useEffect } from 'react';
+import { Layout, Menu, Input, Button, Form, Select } from 'antd';
+import axios from 'axios';
 import "antd/dist/reset.css"
 import '../../styles/Chat.css'; 
 const { Sider, Content } = Layout;
 import { useOutletContext } from 'react-router-dom';
-import { io } from 'socket.io-client'; 
-const socket = io.connect("http://localhost:8000");
+import { usePatients } from '../listData/PatientsList';
 
 const Chat = (props) => {
     const context = useOutletContext() || {};
@@ -13,13 +13,25 @@ const Chat = (props) => {
 
     const [selectedChat, setSelectedChat] = useState(null);
     const [message, setMessage] = useState('');
-    const chats = user ? [
-        { id: 1, name: `${user.firstName}`, message: 'Hello there!' },
-        { id: 2, name: 'Jane Smith', message: 'How are you?' },
-        { id: 3, name: 'John Doe', message: 'Hello there!' },
-        { id: 4, name: 'Jane Smith', message: 'How are you?' }
-        // ...more chats
-    ] : [];
+    const [chats, setChats] = useState([]);
+    const [newChatUser, setNewChatUser] = useState('');
+    const { patients, loading: patientsLoading } = usePatients();
+
+    useEffect(() => {
+        if (user) {
+            axios.get(`http://localhost:8000/api/chats/user/${user._id}`, { withCredentials: true })
+                .then(response => {
+                    const fetchedChats = response.data.map(chat => ({
+                        id: chat._id,
+                        name: chat.participants.find(participant => participant._id !== user._id).name
+                    }));
+                    setChats(fetchedChats);
+                })
+                .catch(error => {
+                    console.error("There was an error fetching the chats!", error);
+                });
+        }
+    }, [user]);
 
     const handleSendMessage = () => {
         if (selectedChat && message) {
@@ -29,18 +41,49 @@ const Chat = (props) => {
         }
     };
 
-    const menuItems = chats.map(chat => (
-        <Menu.Item 
-            key={chat.id}
-            onClick={() => setSelectedChat(chat)} 
-            className={`chat-item ${selectedChat && selectedChat.id === chat.id ? 'selected-chat' : ''}`} 
-            style={{ minHeight: '50px', display: 'flex', alignItems: 'center' }} // Increase minHeight to 100px
-        >
-            <div>
-                <div style={{ fontWeight: 'bold' }}>{chat.name}</div>
+    const handleStartNewChat = () => {
+        if (newChatUser) {
+            axios.post(
+                'http://localhost:8000/api/chats/create',
+                { participants: [user._id, newChatUser] },
+                { withCredentials: true }
+            )
+            .then(response => {
+                const chatData = response.data;
+    
+                // Ensure the response includes populated user data
+                if (chatData.participants.length > 1) {
+                    const otherParticipant = chatData.participants.find(p => p._id !== user._id);
+                    
+                    const newChat = {
+                        _id: chatData._id, 
+                        name: otherParticipant?.name || "New Chat" // Fallback if name isn't available
+                    };
+    
+                    setChats([...chats, newChat]);
+                    setNewChatUser('');
+                }
+            })
+            .catch(error => {
+                console.error("There was an error starting the new chat!", error);
+            });
+        }
+    };
+
+    const menuItems = chats.map(chat => ({
+        key: chat.id,
+        label: (
+            <div
+                onClick={() => setSelectedChat(chat)}
+                className={`chat-item ${selectedChat && selectedChat.id === chat.id ? 'selected-chat' : ''}`}
+                style={{ minHeight: '50px', display: 'flex', alignItems: 'center' }}
+            >
+                <div>
+                    <div style={{ fontWeight: 'bold' }}>{chat.name}</div>
+                </div>
             </div>
-        </Menu.Item>
-    ));
+        )
+    }));
 
     return (
         <Layout style={{ height: 'auto', backgroundColor: '#fff' }}> {/* Change theme to white */}
@@ -49,9 +92,34 @@ const Chat = (props) => {
                     mode="inline"
                     defaultSelectedKeys={['1']}
                     style={{ height: '100%', borderRight: 0 }}
-                >
-                    {menuItems}
-                </Menu>
+                    items={menuItems}
+                />
+                <Form layout="inline" style={{ marginTop: '20px' }}>
+                    {user && user.role === "assistant" && (
+                        <>
+                            <Form.Item>
+                                <Select
+                                    value={newChatUser}
+                                    onChange={(value) => setNewChatUser(value)}
+                                    placeholder="Select a patient to start chat"
+                                    loading={patientsLoading}
+                                    style={{ width: '200px' }}
+                                >
+                                    {patients.map(patient => (
+                                        <Select.Option key={patient._id} value={patient._id}>
+                                            {patient.firstName} {patient.lastName}
+                                        </Select.Option>
+                                    ))}
+                                </Select>
+                            </Form.Item>
+                            <Form.Item>
+                                <Button type="primary" onClick={handleStartNewChat}>
+                                    New
+                                </Button>
+                            </Form.Item>
+                        </>
+                    )}
+                </Form>
             </Sider>
             <Layout>
                 <Content style={{ margin: '24px 16px 0', overflow: 'initial', backgroundColor: '#fff' }}> {/* Change theme to white */}
@@ -77,6 +145,7 @@ const Chat = (props) => {
                                 Send
                             </Button>
                         </div>
+                        
                     </div>
                 </Content>
             </Layout>

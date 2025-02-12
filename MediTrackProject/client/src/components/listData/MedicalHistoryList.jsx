@@ -46,6 +46,17 @@ const MedicalHistoryList = () => {
         fetchMedicalHistories().then();
     }, []);
 
+    const deleteMedicalHistory = async (id) => {
+        try {
+            await axios.delete(`http://localhost:8000/api/medicalHistories/${id}`, { withCredentials: true });
+            message.success("Medical history deleted successfully");
+            fetchMedicalHistories();
+        } catch (error) {
+            console.error("Error deleting medical history:", error);
+            message.error("Error deleting medical history. Please try again later.");
+        }
+    };
+
     const columns = [
         {
             title: 'Date',
@@ -74,6 +85,15 @@ const MedicalHistoryList = () => {
             dataIndex: 'practitioner',
             key: 'practitioner',
             render: (practitioner) => practitioner ? `${practitioner.firstName} ${practitioner.lastName}` : 'Unknown Practitioner',
+        },
+        {
+            title: 'Action',
+            key: 'action',
+            render: (_, record) => (
+                <Button type="link" danger onClick={() => deleteMedicalHistory(record._id)}>
+                    Delete
+                </Button>
+            ),
         },
     ];
 

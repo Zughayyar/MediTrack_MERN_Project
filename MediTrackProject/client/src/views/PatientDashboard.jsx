@@ -166,7 +166,7 @@ const PatientDashboard = () => {
                         <div className="dashboard-welcome-container">
                             {user ? `Welcome, ${user.firstName} ${user.lastName}` : "Loading..."}
                         </div>
-                        <Button type="primary" onClick={showChatModal}>Open Chat</Button> {/* Button to open Modal */}
+                        <Button type="primary" onClick={showChatModal}>Messages</Button> {/* Button to open Modal */}
                         <Divider />
                         <Row gutter={16}>
                             <Col span={8}>

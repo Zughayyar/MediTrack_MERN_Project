@@ -1,7 +1,7 @@
-# MediSafe - Internal Clinic Management System
+# MediTracker - Internal Clinic Management System
 
 ## 📌 Project Overview
-**MediSafe** is an internal clinic management system designed to streamline medical appointments, enhance patient record management, and optimize workflow for healthcare professionals.
+**MediTracker** is an internal clinic management system designed to streamline medical appointments, enhance patient record management, and optimize workflow for healthcare professionals.
 
 The system ensures efficient scheduling, secure medical data handling, and easy prescription management.
 

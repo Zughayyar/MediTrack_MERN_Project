@@ -2,11 +2,12 @@ require('dotenv').config();
 require('./config/mongoose.config');
 const express = require('express');
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT || 8000;
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const http = require("http");
 const { Server } = require("socket.io");
+const Message = require('./models/message.model'); // Ensure this model is correct
 
 // Middleware
 app.use(cors({
@@ -25,7 +26,6 @@ const appointmentRoutes = require('./routes/appointment.routes');
 const chatRoutes = require('./routes/chat.routes');
 const messageRoutes = require('./routes/message.routes');
 
-
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
@@ -34,21 +34,47 @@ const io = new Server(server, {
     },
 });
 
+io.on('connection', (socket) => {
+    console.log('A user connected:', socket.id);
 
-userRoutes(app);  // Register user-related routes
-prescriptionRoutes(app);  // Register prescription-related routes
-medicalHistoryRoutes(app);  // Register medical history-related routes
-appointmentRoutes(app);  // Register appointment-related routes
-chatRoutes(app);  // Register chat-related routes
-messageRoutes(app);  // Register message-related routes
+    socket.on('joinChat', (chatId) => {
+        socket.join(chatId);
+        console.log(`User ${socket.id} joined chat ${chatId}`);
+    });
 
-// Error handling middleware
+    socket.on('sendMessage', async (message) => {
+        try {
+            const newMessage = new Message({
+                chatId: message.chatId,
+                sender: message.sender,
+                content: message.content
+            });
+            const savedMessage = await newMessage.save();
+
+            // Emit the **saved** message, ensuring all properties exist
+            io.to(message.chatId).emit('receiveMessage', savedMessage);
+        } catch (error) {
+            console.error('Error saving message:', error);
+        }
+    });
+
+    socket.on('disconnect', () => {
+        console.log('A user disconnected:', socket.id);
+    });
+});
+
+userRoutes(app);
+prescriptionRoutes(app);
+medicalHistoryRoutes(app);
+appointmentRoutes(app);
+chatRoutes(app);
+messageRoutes(app);
+
 app.use((error, request, response, next) => {
     console.error(error.stack);
     response.status(500).send({ error: 'Something went wrong' });
 });
 
-// Start server
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`Listening at Port ${port}`);
 });

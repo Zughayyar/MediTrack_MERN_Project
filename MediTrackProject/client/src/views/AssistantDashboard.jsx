@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Col, Layout, Menu } from "antd";
-import { HomeOutlined, CalendarOutlined } from "@ant-design/icons";
+import { HomeOutlined, CalendarOutlined ,WechatOutlined} from "@ant-design/icons";
 import "../styles/AssistDashboard.css";
 import MediTrackerLogo from "../images/MediTracker.png";
 import LogoutButton from "../components/users/LogoutButton.jsx";
@@ -43,6 +43,8 @@ const AssistantDashboard = () => {
             setSelectedKey("1");
         } else if (path === "/assistDashboard/appointments") {
             setSelectedKey("2");
+        } else if (path === "/assistDashboard/chats") {
+            setSelectedKey("3");
         }
     }, [location.pathname]);
 
@@ -60,6 +62,12 @@ const AssistantDashboard = () => {
             icon: <CalendarOutlined/>,
             label: "Appointments",
             onClick: () => navigate("/assistDashboard/appointments")
+        },
+        {
+            key: "3",
+            icon: <WechatOutlined />,
+            label: "Messages",
+            onClick: () => navigate("/assistDashboard/chats")
         },
     ];
 

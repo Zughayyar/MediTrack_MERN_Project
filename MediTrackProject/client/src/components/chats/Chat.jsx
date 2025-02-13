@@ -40,7 +40,7 @@ const Chat = (props) => {
             return response.data;
         } catch (error) {
             console.error("Error fetching user details:", error);
-            return null;
+            return { user: { firstName: "Unknown", lastName: "User" } }; // Provide default data
         }
     };
 
@@ -89,16 +89,19 @@ const Chat = (props) => {
 
     useEffect(() => {
         if (user && selectedChat) {
-            socket.emit('joinChat', selectedChat.id); // Use selectedChat.id
+            socket.emit('joinChat', selectedChat.id);
 
-            socket.on('receiveMessage', (message) => {
-                if (message.chatId === selectedChat.id) { // Use selectedChat.id
+            const handleReceiveMessage = (message) => {
+                if (message.chatId === selectedChat.id) {
                     setMessages((prevMessages) => [...prevMessages, message]);
                 }
-            });
+            };
+
+            socket.off('receiveMessage', handleReceiveMessage); // Remove previous
+            socket.on('receiveMessage', handleReceiveMessage);  // Add new one
 
             return () => {
-                socket.off('receiveMessage');
+                socket.off('receiveMessage', handleReceiveMessage); // Cleanup
             };
         }
     }, [selectedChat, user]);
@@ -113,7 +116,7 @@ const Chat = (props) => {
 
             socket.emit('sendMessage', newMessage);
 
-            setMessages((prevMessages) => [...prevMessages, newMessage]); // Update messages locally
+            // setMessages((prevMessages) => [...prevMessages, newMessage]); // Update messages locally
 
             setMessage('');
         }

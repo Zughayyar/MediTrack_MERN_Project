@@ -28,17 +28,3 @@ The system ensures efficient scheduling, secure medical data handling, and easy 
 - **Medical Records:** General history, Visit notes, Assigned Practitioner
 - **Prescriptions:** Patient, Medications, PDF export
 
-## 🏗️ Development Plan
-1️⃣ Set up Express.js backend and MongoDB  
-2️⃣ Build API endpoints for authentication, roles, appointments, and medical records  
-3️⃣ Develop React frontend and integrate with API  
-4️⃣ Implement role-based access control  
-5️⃣ Develop appointment scheduling and prescription management features  
-6️⃣ Optimize performance and deploy
-
-## 📜 License
-This project is open-source. Feel free to contribute and improve!
-
----
-
-💡 **Contributions & Issues:** Have an idea? Found a bug? Open an issue or contribute to the repo! 🚀  
